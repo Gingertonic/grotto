@@ -48,7 +48,15 @@ describe User do
     end
 
     it 'can create a slug from the username' do
-      expect(@test_user.slug).to eq("Ginger-Tonic")
+      expect(@test_slug_user.slug).to eq("ginger-tonic")
+    end
+
+  end
+
+  describe 'class methods' do
+    it 'can find a user from a slug of the username' do
+      slug = "ginger-tonic"
+      expect(User.find_by_slug(slug)).to eq(@test_slug_user)
     end
   end
 
