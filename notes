@@ -8,6 +8,7 @@ Models:
 Users
 first name
 last name
+username
 email
 
 Dive
@@ -15,4 +16,4 @@ divesite_id
 user_id
 
 Divesites
-name 
+name
