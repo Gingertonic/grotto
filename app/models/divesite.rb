@@ -1,3 +1,3 @@
-class DiveSite < ActiveRecord::Base
+class Divesite < ActiveRecord::Base
 
 end

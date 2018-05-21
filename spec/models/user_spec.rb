@@ -1,47 +1,67 @@
 require 'spec_helper'
 
 describe User do
-
-  it 'has a first name, last name, username and email' do
-    user = User.new({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
-
-    expect(user).to be_valid
+  before(:each) do
+    @test_user = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
+    @test_slug_user = User.create({first_name: "Beth", last_name: "Schofield", username: "ginger tonic", email: "thegingertonicstudios@gmail.com"})
   end
 
-  it 'is invalid without a first name' do
-    user = User.create({last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
+  describe 'validation' do
+    it 'has a first name, last name, username and email' do
+      expect(@test_user).to be_valid
+    end
 
-    expect(user).to_not be_valid
+    it 'is invalid without a first name' do
+      user = User.create({last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
+
+      expect(user).to_not be_valid
+    end
+
+    it 'is invalid without a last name' do
+      user = User.create({first_name: "Beth", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
+
+      expect(user).to_not be_valid
+    end
+
+    it 'is invalid without a username' do
+      user = User.create({first_name: "Beth", last_name: "Schofield", email: "thegingertonicstudios@gmail.com"})
+
+      expect(user).to_not be_valid
+    end
+
+    it 'is invalid without an email' do
+      user = User.create({last_name: "Schofield", username: "Gingertonic"})
+
+      expect(user).to_not be_valid
+    end
+
+    it 'is invalid with a duplicate email' do
+      @test_user
+      user2 = User.create({first_name: "Beth", last_name: "Schofield", username: "BetiLeti", email: "thegingertonicstudios@gmail.com"})
+      expect(user2).to_not be_valid
+    end
   end
 
-  it 'is invalid without a last name' do
-    user = User.create({first_name: "Beth", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
+  describe 'instance methods' do
+    it 'a user knows its full name' do
+      expect(@test_user.full_name).to eq("Beth Schofield")
+    end
 
-    expect(user).to_not be_valid
+    it 'can create a slug from the username' do
+      expect(@test_user.slug).to eq("Ginger-Tonic")
+    end
   end
 
-  it 'is invalid without a username' do
-    user = User.create({first_name: "Beth", last_name: "Schofield", email: "thegingertonicstudios@gmail.com"})
+  describe 'associations' do
+    it 'has many dives' do
+      dive1 = @test_user.dives.build("Dive 1")
+      dive2 = @test_user.dives.build("Dive 2")
 
-    expect(user).to_not be_valid
+      expect(user.dives.count).to eq(2)
+    end
+
+    it 'has many divesites'
+
   end
 
-  it 'is invalid without an email' do
-    user = User.create({last_name: "Schofield", username: "Gingertonic"})
-
-    expect(user).to_not be_valid
-  end
-
-  it 'is invalid with a duplicate email' do
-    user1 = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
-    user2 = User.create({first_name: "Beth", last_name: "Schofield", username: "BetiLeti", email: "thegingertonicstudios@gmail.com"})
-
-    expect(user2).to_not be_valid
-  end
-
-  it 'a user knows its full name' do
-    user = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
-
-    expect(user.full_name).to eq("Beth Schofield")
-  end
 end

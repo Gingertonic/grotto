@@ -12,8 +12,13 @@ username
 email
 
 Dive
+date
 divesite_id
 user_id
+  (future feature, has 2 users? 2 dive buddies?)
+notes
 
 Divesites
 name
+users
+dives
