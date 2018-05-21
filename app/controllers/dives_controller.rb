@@ -1,0 +1,3 @@
+class DivesController < ApplicationController
+
+end
