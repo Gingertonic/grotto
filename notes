@@ -22,3 +22,14 @@ Divesites
 name
 users
 dives
+
+
+Structure:
+
+/ Homepage
+  -login
+  -signup
+
+/login
+
+/signup
