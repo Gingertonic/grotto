@@ -1,0 +1,18 @@
+NOTES
+
+TO DO
+- write a few tests
+- test the tests!
+
+Models:
+Users
+first name
+last name
+email
+
+Dive
+divesite_id
+user_id
+
+Divesites
+name 
