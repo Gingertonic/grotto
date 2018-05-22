@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :username, :email, :password, presence: true
   validates :email, uniqueness: true
   has_secure_password
+  
   has_many :dives
   has_many :divesites, through: :dives
 

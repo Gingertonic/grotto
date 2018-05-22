@@ -5,6 +5,12 @@ describe Divesite do
     @test_divesite = Divesite.create(name: "Ariels Grotto")
   end
 
+  # after do
+  #   Divesite.destroy_all
+  #   User.destroy_all
+  #   Dive.destroy_all
+  # end
+
   describe 'validation' do
 
     it 'has a name' do
@@ -21,21 +27,45 @@ describe Divesite do
 
   describe 'associations' do
 
-    it 'has many divers (Users)'
+    it 'has many divers (Users)' do
+      beti = User.create({first_name: "Beth", last_name: "Schofield", username: "Ginger tonic", email: "thegingertonicstudios@gmail.com", password: "password"})
+      aki = User.create({first_name: "Test", last_name: "User", username: "test user", email: "testing@gmail.com", password: "test"})
+      dive1 = beti.dives.create({date: "17/04/2018"})
+      dive2 = aki.dives.create({date: "30/01/2017"})
+      beti.save
+      aki.save
+      dive1.divesite = @test_divesite
+      dive2.divesite = @test_divesite
+      dive1.save
+      dive2.save
+      expect(@test_divesite.users.count).to eq(2)
+    end
 
-    it 'has many dives'
 
+    it 'has many dives' do
+      beti = User.create({first_name: "Beth", last_name: "Schofield", username: "Ginger tonic", email: "thegingertonicstudios@gmail.com", password: "password"})
+      aki = User.create({first_name: "Test", last_name: "User", username: "test user", email: "testing@gmail.com", password: "test"})
+      dive1 = beti.dives.create({date: "17/04/2018"})
+      dive2 = aki.dives.create({date: "30/01/2017"})
+      beti.save
+      aki.save
+      dive1.divesite = @test_divesite
+      dive2.divesite = @test_divesite
+      dive1.save
+      dive2.save
+      expect(@test_divesite.dives.count).to eq(2)
+    end
   end
 
   describe 'instance methods' do
     it 'can create a slug from the divesite name' do
-      expect(@test_divesite.slug).to eq("Ariels-Grotto")
+      expect(@test_divesite.slug).to eq("ariels-grotto")
     end
   end
 
   describe 'class methods' do
     it 'can find a divesite from its slug' do
-      slug = "Ariels-Grotto"
+      slug = "ariels-grotto"
       expect(Divesite.find_by_slug(slug)).to eq(@test_divesite)
     end
   end
