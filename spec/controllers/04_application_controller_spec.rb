@@ -13,7 +13,7 @@ describe ApplicationController do
   describe 'sign up page' do
     it 'loads the sign up page' do
       get '/signup'
-      expect(last_response.status).to include("Create an account")
+      expect(last_response.body).to include("Create an account")
     end
 
     it 'directs new users to the feed of all users\' dives' do

@@ -35,21 +35,31 @@ Structure:
 
 /signup
 
+ISSUES THAT AROSE:
+wrong singularization of Dives (Dife!)
+fixed by adding activesupport gem and making an inflection file in config folder, required in config.ru
+
+tux not loading
+fixed by using require not require_relative in config.ru
+
+has_many, through assocatioan not working
+fixed by simplifying - join table was not required
 TUESDAY GOALS:
-RECORD 30min coding sessions
 finish writing tests
 get all model tests passing
 
 WEDNESDAY
+RECORD 30min coding sessions
 get all controller tests passing
 update tests if needed
 pass updated tests
 get all basic views written
+eve - meeting with Katie
 
 THURSDAY
 complete technical requirements for assessment
 css - make it pretty!
-eve - meeting with Katie
+eve - meeting with TradeSchool
 
 FRIDAY
 record walkthrough

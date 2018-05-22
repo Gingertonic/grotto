@@ -1,5 +1,7 @@
 class ApplicationController < Sinatra::Base
 
+  register Sinatra::Flash
+
   configure do
     set :views, 'app/views'
     set :public_folder, 'public'
@@ -9,7 +11,8 @@ class ApplicationController < Sinatra::Base
 
   # ROUTES
   get '/' do
-    "Hello World!"
+    flash[:alert] = "Woohoo alerts are working!!"
+    erb :index
   end
 
 end
