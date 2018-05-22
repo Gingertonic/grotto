@@ -38,4 +38,22 @@ describe ApplicationController do
     end
   end
 
+  describe 'log in page' do
+    before(:each) do
+      visit '/login'
+    end
+
+    it 'goes to a page with a login form and submit button' do
+      expect(page).to have_selector('form')
+      expect(page).to have_selector('button')
+    end
+
+    it 'lets a user login' do
+      fill_in("username"), with: "Gingertonic"
+      fill_in("password"), with: "password"
+      click_button("submit")
+      expect(page).to have_content("Beti")
+    end
+  end
+
 end

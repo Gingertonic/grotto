@@ -36,6 +36,7 @@ Structure:
 /signup
 
 ISSUES THAT AROSE:
+WEDNESDAY
 wrong singularization of Dives (Dife!)
 fixed by adding activesupport gem and making an inflection file in config folder, required in config.ru
 
@@ -44,28 +45,38 @@ fixed by using require not require_relative in config.ru
 
 has_many, through assocatioan not working
 fixed by simplifying - join table was not required
+
+MONDAY
+Plan app and file structure (on paper/evernote)
+
 TUESDAY GOALS:
 finish writing tests
 get all model tests passing
+lecture on capybara testing
 
 WEDNESDAY
 RECORD 30min coding sessions
 get all controller tests passing
-update tests if needed
-pass updated tests
+update tests if needed (add capybara)
+pass updated test form tests
 get all basic views written
 eve - meeting with Katie
 
 THURSDAY
 complete technical requirements for assessment
 css - make it pretty!
-eve - meeting with TradeSchool
+23h - meeting with TradeSchool
+00h30: Project Prep Office Hours sinatra
 
 FRIDAY
+06h30 Career Coach AMA
 record walkthrough
 write blogpost
 
-submit for assessment!
+SATURDAY
+123h30: HTML/CSS Deep Dive
+
+after submit for assessment!
 Refine visual design - maybe some slight animation??? Bubbles?!
 [refactor/add features if desired] ON NEW FEATURE BRANCH! ONLY MERGE IF IT STILL WORKS!
 clone Fwitter, new repo, make it nice - Bwitish Banter?!
