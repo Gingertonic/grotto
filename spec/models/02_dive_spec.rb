@@ -11,7 +11,7 @@ describe Dive do
     end
 
     it 'is invalid without a date' do
-      Dive.new({time: "10:00", length: 50})
+      dive = Dive.new({time: "10:00", length: 50})
 
       expect(dive).to_not be_valid
     end

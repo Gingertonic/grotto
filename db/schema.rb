@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_22_043218) do
+ActiveRecord::Schema.define(version: 2018_05_22_054812) do
 
   create_table "dive_divesites", force: :cascade do |t|
     t.integer "dive_id"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2018_05_22_043218) do
     t.integer "divesite_id"
     t.integer "user_id"
     t.string "notes"
+    t.string "time"
+    t.integer "length"
   end
 
   create_table "divesites", force: :cascade do |t|
