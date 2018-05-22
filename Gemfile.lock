@@ -110,6 +110,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport
   bcrypt
   capybara
   database_cleaner!

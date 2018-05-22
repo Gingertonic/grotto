@@ -34,9 +34,10 @@ describe Divesite do
   end
 
   describe 'class methods' do
-    it 'can find a divesite from its slug'
-    slug = "Ariels-Grotto"
-    expect(Divesite.find_by_slug(slug)).to eq(@test_divesite)
+    it 'can find a divesite from its slug' do
+      slug = "Ariels-Grotto"
+      expect(Divesite.find_by_slug(slug)).to eq(@test_divesite)
+    end
   end
-  
+
 end

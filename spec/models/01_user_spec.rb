@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    @test_user = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
-    @test_slug_user = User.create({first_name: "Beth", last_name: "Schofield", username: "ginger tonic", email: "thegingertonicstudios@gmail.com", password: "password2"})
+    @test_user = User.create({first_name: "Beth", last_name: "Schofield", username: "Ginger tonic", email: "thegingertonicstudios@gmail.com", password: "password"})
   end
 
   describe 'validation' do
@@ -12,13 +11,13 @@ describe User do
     end
 
     it 'is invalid without a first name' do
-      user = User.create({last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
+      user = User.create({last_name: "Schofield", username: "Ginger tonic", email: "thegingertonicstudios@gmail.com", password: "password"})
 
       expect(user).to_not be_valid
     end
 
     it 'is invalid without a last name' do
-      user = User.create({first_name: "Beth", username: "Gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
+      user = User.create({first_name: "Beth", username: "Ginger tonic", email: "thegingertonicstudios@gmail.com", password: "password"})
 
       expect(user).to_not be_valid
     end
@@ -30,13 +29,13 @@ describe User do
     end
 
     it 'is invalid without an email' do
-      user = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", password: "password"})
+      user = User.create({first_name: "Beth", last_name: "Schofield", username: "Ginger tonic", password: "password"})
 
       expect(user).to_not be_valid
     end
 
     it 'is invalid without a password' do
-      user = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic"})
+      user = User.create({first_name: "Beth", last_name: "Schofield", username: "Ginger tonic"})
 
       expect(user).to_not be_valid
     end
@@ -54,7 +53,7 @@ describe User do
     end
 
     it 'can create a slug from the username' do
-      expect(@test_slug_user.slug).to eq("ginger-tonic")
+      expect(@test_user.slug).to eq("ginger-tonic")
     end
 
   end
@@ -62,20 +61,32 @@ describe User do
   describe 'class methods' do
     it 'can find a user from a slug of the username' do
       slug = "ginger-tonic"
-      expect(User.find_by_slug(slug)).to eq(@test_slug_user)
+      expect(User.find_by_slug(slug)).to eq(@test_user)
     end
   end
 
   describe 'associations' do
     it 'has many dives' do
-      dive1 = @test_user.dives.build("Dive 1")
-      dive2 = @test_user.dives.build("Dive 2")
+      dive1 = @test_user.dives.build({date: "17/04/2018"})
+      dive2 = @test_user.dives.build({date: "30/01/2017"})
+      @test_user.save
 
-      expect(user.dives.count).to eq(2)
+      expect(@test_user.dives.count).to eq(2)
     end
 
-    it 'has many divesites'
+    it 'has many divesites' do
+      dive1 = @test_user.dives.build({date: "17/04/2018"})
+      dive2 = @test_user.dives.build({date: "30/01/2017"})
+      @test_user.save
+      divesite1 = Divesite.create({name: "Ariels Grotto"})
+      divesite2 = Divesite.create({name: "Living Seas at Epcot"})
+      dive1.divesite = divesite1
+      dive2.divesite = divesite2
+      dive1.save
+      dive2.save
 
+      expect(@test_user.divesites.count).to eq(2)
+    end
   end
 
 end
