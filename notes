@@ -10,6 +10,7 @@ first name
 last name
 username
 email
+password/password_digest
 
 Dive
 date
@@ -33,3 +34,28 @@ Structure:
 /login
 
 /signup
+
+TUESDAY GOALS:
+RECORD 30min coding sessions
+finish writing tests
+get all model tests passing
+
+WEDNESDAY
+get all controller tests passing
+update tests if needed
+pass updated tests
+get all basic views written
+
+THURSDAY
+complete technical requirements for assessment
+css - make it pretty!
+eve - meeting with Katie
+
+FRIDAY
+record walkthrough
+write blogpost
+
+submit for assessment!
+Refine visual design - maybe some slight animation??? Bubbles?!
+[refactor/add features if desired] ON NEW FEATURE BRANCH! ONLY MERGE IF IT STILL WORKS!
+clone Fwitter, new repo, make it nice - Bwitish Banter?!

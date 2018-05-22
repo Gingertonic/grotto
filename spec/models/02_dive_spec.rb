@@ -20,7 +20,7 @@ describe Dive do
 
   describe 'associations' do
     it 'belongs to a user' do
-      @test_dive.user = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
+      @test_dive.user = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
 
       expect(@test_dive.user.username).to eq("Gingertonic")
     end
