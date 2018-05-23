@@ -1,0 +1,8 @@
+<h1><%=@divesite.name%></h1>
+<h2><%=@divesite.location%>, <%=@divesite.country%></h2>
+
+
+<h2>Who has dived <%=@divesite.name%>?</h2>
+<%@divesite.users.each do |user|%>
+  <p><a href="/divelogs/user.slug"><%=user.username%></a></p>
+<%end%>
