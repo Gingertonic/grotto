@@ -55,7 +55,7 @@ get all model tests passing
 lecture on capybara testing
 
 WEDNESDAY
-RECORD 30min coding sessions
+RECORD 30min coding session
 get all controller tests passing
 update tests if needed (add capybara)
 pass updated test form tests

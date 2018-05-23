@@ -11,21 +11,28 @@ class ApplicationController < Sinatra::Base
 
   # ROUTES
   get '/' do
+    redirect '/dives' if logged_in?
     erb :"index"
   end
 
-  get '/signup' do
-    erb :"users/signup"
-  end
-
-  get '/login' do
-    session[:user_id] = User.id
-    erb :"sessions/login"
-  end
 
   helpers do
+
+    def invalid_user?(params)
+      user = User.find_by_username(params[:username])
+      params[:username].empty? || user
+    end
+
+    def create_user(params)
+      user = User.create(params).save
+      if !user
+        flash[:alert] = "Please enter your first name, last name, username, email and password to create an account!"
+        redirect '/signup'
+      end
+    end
+
     def login(params)
-      User.find_by_username(params[:username])
+      user = User.find_by_username(params[:username])
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
       elsif user && !user.authenticate(params[:password])

@@ -20,9 +20,29 @@ describe SessionController do
   end
 
   describe 'login' do
-    it 'loads the sign up page' do
+    it 'loads the login page' do
       get '/login'
       expect(last_response.status).to include("Login to the Grotto")
+    end
+
+    describe 'log in page' do
+      before(:each) do
+        visit '/logout'
+        visit '/login'
+      end
+
+      it 'goes to a page with a login form and submit button' do
+        expect(page).to have_selector('form')
+        expect(page).to have_selector('button')
+      end
+
+      it 'lets a user login' do
+        User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
+        fill_in "username", with: "Gingertonic"
+        fill_in "password", with: "password"
+        click_button("Login")
+        expect(page).to have_content("Gingertonic")
+      end
     end
 
     it 'loads all dives after login' do

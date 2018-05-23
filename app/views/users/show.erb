@@ -1,0 +1,5 @@
+<h1><%=@user.username.titleize%>'s Dive Log</h1>
+
+<%@user.dives.each do |dive| %>
+  <p><%=dive.date%> - <%=dive.divesite.name%></p>
+<%end%>
