@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
 
   get '/divelogs/:slug' do
+    redirect '/login' if !logged_in?
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
   end

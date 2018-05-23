@@ -1,5 +1,8 @@
 NOTES
 
+CURRENT LIMITATIONS
+each user can only log 1 dive per divespot on a given date
+
 TO DO
 - write a few tests
 - test the tests!

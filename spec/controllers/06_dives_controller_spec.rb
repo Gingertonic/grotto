@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe DivesController do
   before do
-    beti = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com"})
-    aki = User.create({first_name: "Aleksandar", last_name: "Gakovic", username: "aleksea_g", email: "al@bear.com"})
+    beti = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
+    aki = User.create({first_name: "Aleksandar", last_name: "Gakovic", username: "aleksea_g", email: "al@bear.com", password: "testing"})
     dive1 = Dive.create(date: "17/04/2018")
     dive2 = Dive.create(date: "01/30/2017")
     grotto = Divesite.create(name: "Ariels Grotto", location: "Menjangan Island, Bali", country: "Indonesia")
@@ -12,7 +12,7 @@ describe DivesController do
     dive1.divesite = grotto
     dive1.save
     dive2.user = aki
-    dive2.divesite = grotto
+    dive2.divesite = epcot
     dive2.save
   end
 
@@ -23,10 +23,11 @@ describe DivesController do
   end
 
   describe 'dive page' do
+
     it 'shows information on 1 dive'do
       params = {username: "aleksea_g", password: "testing"}
       post '/login', params
-      get '/aki/grotto'
+      get '/aleksea_g/ariels-grotto/17-04-2018'
       expect(last_response.body).to include("Ariels Grotto")
       expect(last_response.body).to_not include("Living Seas at Epcot")
     end

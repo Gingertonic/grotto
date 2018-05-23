@@ -2,4 +2,5 @@
 
 <%@user.dives.each do |dive| %>
   <p><%=dive.date%> - <%=dive.divesite.name%></p>
+  <a href="/<%=@user.slug%>/<%=dive.divesite.slug%>/<%=dive.slug%>">See dive</a>
 <%end%>
