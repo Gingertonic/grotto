@@ -1,8 +1,7 @@
 class Divesite < ActiveRecord::Base
   validates :name, presence: true
 
-  # has_many :dive_divesites
-  has_many :dives #, through: :dive_divesites
+  has_many :dives, :class_name => "Dive"
   has_many :users, through: :dives
 
   def slug

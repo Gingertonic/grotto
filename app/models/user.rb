@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   has_secure_password
 
-  has_many :dives
+  has_many :dives, :class_name => "Dive"
   has_many :divesites, through: :dives
 
   def full_name
