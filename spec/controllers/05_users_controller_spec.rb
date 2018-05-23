@@ -57,4 +57,59 @@ describe UsersController do
     end
   end
 
+  describe 'edit user page'do
+    before(:each) do
+      get '/logout'
+      params = {username: "aleksea_g", password: "testing"}
+      post '/login', params
+      get '/aleksea_g/edit'
+    end
+
+    it 'shows a form with a submit button' do
+      expect(page).to have_selector("form")
+      expect(page).to have_selector("button")
+    end
+
+    it 'allows user to update their details' do
+      fill_in "last_name", with: "Schofield"
+      fill_in "password", with: "testing"
+      click_button("Update Your Details")
+      expect(User.find_by_username("aleksea_g").last_name).to eq("Schofield")
+    end
+
+    it 'does not allow user to have an empty email' do
+      fill_in "email", with: ""
+      fill_in "password", with: "testing"
+      click_button("Update Your Details")
+      expect(last_response.location).to include('/aleksea_g/edit')
+    end
+
+    it 'does not allow a user to edit another users details' do
+      get '/logout'
+      params = {username: "Gingertonic", password: "password"}
+      post '/login', params
+      get '/divelogs/aleksea_g'
+      fill_in "first_name", with: "Bobby"
+      fill_in "password", with: "testing"
+      click_button("Update Your Details")
+      expect(last_response.location).to include('/aleksea_g/edit')
+    end
+
+    it 'redirects to current users divelog if successful edit' do
+      fill_in "first_name", with: "Alek"
+      fill_in "password", with: "testing"
+      click_button("Update Your Details")
+      expect(last_response.location).to include('/divelogs/aleksea_g')
+      expect(User.find_by_username("aleksea_g").first_name).to eq("Alek")
+    end
+
+    it 'does not allow any changes with invalid password' do
+      fill_in "email", with: "aki@do.com"
+      fill_in "password", with: "wrongpassword"
+      click_button("Update Your Details")
+      expect(last_response.location).to include('/aleksea_g/edit')
+      expect(User.find_by_username("aleksea_g").email).to eq("al@bear.com")
+    end
+  end
+
 end

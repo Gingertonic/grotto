@@ -91,11 +91,42 @@ describe DivesController do
       expect(last_response.location).to include('/aleksea_g/ariels-grotto/17-04-2018/edit')
     end
 
+    it 'does not allow a user to edit another users dive' do
+      get '/logout'
+      params = {username: "Gingertonic", password: "password"}
+      post '/login', params
+      get '/aleksea_g/ariels-grotto/17-04-2018/edit'
+      expect(last_response.body).to_not include('Update Dive')
+    end
+
     it 'redirects to current users divelog if successful edit' do
       fill_in "date", with: "12/12/2012"
       click_button("Update Dive")
       expect(last_response.location).to include('/divelogs/aleksea_g')
       expect(last_response.body).to include('12/12/2012')
+    end
+  end
+
+  describe 'delete dive' do
+    before(:each) do
+      get '/logout'
+      params = {username: "aleksea_g", password: "testing"}
+      post '/login', params
+      get '/aleksea_g/ariels-grotto/17-04-2018/edit'
+    end
+
+    it 'allows a user to delete a dive' do
+      get '/aleksea_g/ariels-grotto/17-04-2018'
+      click_button("Delete Dive")
+      expect(Dive.find_by_user_divesite_and_date(user: aleksea_g, divesite: ariels-grotto, date: "17-04-2018")).to_not exist
+    end
+
+    it 'does not allow a user to delete another users dive' do
+      get '/logout'
+      params = {username: "Gingertonic", password: "password"}
+      post '/login', params
+      get '/aleksea_g/ariels-grotto/17-04-2018'
+      expect(last_response.body).to_not include('Delete Dive')
     end
   end
 end

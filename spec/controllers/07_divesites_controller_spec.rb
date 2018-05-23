@@ -22,6 +22,15 @@ describe DivesitesController do
     Divesite.destroy_all
   end
 
+  describe 'divesite index page' do
+    it 'loads a page listing all divesites' do
+      params = {username: "aleksea_g", password: "testing"}
+      post '/login', params
+      get '/divesites'
+      expect(last_response.body).to include("All Divesites")
+    end
+  end
+
   describe 'divesite show page' do
     it 'shows information on 1 divesite' do
       params = {username: "aleksea_g", password: "testing"}
@@ -39,6 +48,77 @@ describe DivesitesController do
       get '/divesites/ariels-grotto'
       expect(last_response.body).to include("aleksea_g")
       expect(last_response.body).to_not include("Gingertonic")
+    end
+  end
+
+  describe 'new divesite page'do
+    before(:each) do
+      get '/logout'
+      params = {username: "aleksea_g", password: "testing"}
+      post '/login', params
+      get '/divesites/new'
+    end
+
+    it 'shows a form with a submit button' do
+      expect(page).to have_selector("form")
+      expect(page).to have_selector("submit")
+    end
+
+    it 'allows user to create a new divesite' do
+      fill_in "name", with: "Tritons Castle"
+      fill_in "location", with: "Under the Sea"
+      fill_in "country", with: "Disney Universe"
+      click_button("Add Divesite")
+      expect(Divesite.all.count).to eq(3)
+    end
+
+    it 'does not allow dive to have a empty name' do
+      fill_in "location", with: "Under the Sea"
+      fill_in "country", with: "Disney Universe"
+      click_button("Add Divesite")
+      expect(last_response.location).to include('/divesite/new')
+    end
+
+    it 'redirects to list of divesites if successfully added new divesite' do
+      fill_in "name", with: "Tritons Castle"
+      fill_in "location", with: "Under the Sea"
+      fill_in "country", with: "Disney Universe"
+      click_button("Add Divesite")
+      expect(last_response.location).to include('/divesites')
+      expect(last_response.body).to include('Tritons Castle')
+    end
+  end
+
+  describe 'edit dive page'do
+    before(:each) do
+      get '/logout'
+      params = {username: "aleksea_g", password: "testing"}
+      post '/login', params
+      get '/divesites/ariels-grotto/edit'
+    end
+
+    it 'shows a form with a submit button' do
+      expect(page).to have_selector("form")
+      expect(page).to have_selector("button")
+    end
+
+    it 'allows user to edit a dive' do
+      fill_in "country", with: "Disney Universe"
+      click_button("Update Divesite")
+      expect(Divesite.find_by_slug("ariels-grotto").country).to eq("Disney Universe")
+    end
+
+    it 'does not allow dive to have a empty name' do
+      fill_in "name", with: ""
+      click_button("Update Divesite")
+      expect(last_response.location).to include('/divesites/ariels-grotto/edit')
+    end
+
+    it 'redirects to list of divesites if successfully edited divesite' do
+      fill_in "name", with: "Ariels Cave"
+      click_button("Update Divesite")
+      expect(last_response.location).to include('/divesites')
+      expect(last_response.body).to include("Ariels Cave")
     end
   end
 
