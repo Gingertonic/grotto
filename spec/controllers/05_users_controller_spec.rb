@@ -62,53 +62,68 @@ describe UsersController do
       get '/logout'
       params = {username: "aleksea_g", password: "testing"}
       post '/login', params
-      get '/aleksea_g/edit'
+      get '/users/aleksea_g/edit'
     end
 
-    it 'shows a form with a submit button' do
-      expect(page).to have_selector("form")
-      expect(page).to have_selector("button")
+    it 'loads a page to edit user account details' do
+      expect(last_response.body).to include('Update your account details')
     end
 
     it 'allows user to update their details' do
-      fill_in "last_name", with: "Schofield"
-      fill_in "password", with: "testing"
-      click_button("Update Your Details")
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Schofield", email: "al@bear.com", new_password: "", new_password_check: "", password: "testing"}
+      patch '/users/aleksea_g', params
       expect(User.find_by_username("aleksea_g").last_name).to eq("Schofield")
     end
 
     it 'does not allow user to have an empty email' do
-      fill_in "email", with: ""
-      fill_in "password", with: "testing"
-      click_button("Update Your Details")
-      expect(last_response.location).to include('/aleksea_g/edit')
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "", new_password: "", new_password_check: "", password: "testing"}
+      patch '/users/aleksea_g', params
+      follow_redirect!
+      expect(last_response.body).to include('Please confirm your current password')
     end
 
     it 'does not allow a user to edit another users details' do
       get '/logout'
       params = {username: "Gingertonic", password: "password"}
       post '/login', params
-      get '/divelogs/aleksea_g'
-      fill_in "first_name", with: "Bobby"
-      fill_in "password", with: "testing"
-      click_button("Update Your Details")
-      expect(last_response.location).to include('/aleksea_g/edit')
+      get '/divelogs/aleksea_g/edit'
+      params = {username: "aleksea_g", first_name: "Bobby", last_name: "Gakovic", email: "al@bear.com", new_password: "", new_password_check: "", password: "testing"}
+      patch '/users/aleksea_g', params
+      follow_redirect!
+      expect(last_response.body).to include('Dive Log')
     end
 
     it 'redirects to current users divelog if successful edit' do
-      fill_in "first_name", with: "Alek"
-      fill_in "password", with: "testing"
-      click_button("Update Your Details")
-      expect(last_response.location).to include('/divelogs/aleksea_g')
+      params = {username: "aleksea_g", first_name: "Alek", last_name: "Gakovic", email: "al@bear.com", new_password: "", new_password_check: "", password: "testing"}
+      patch '/users/aleksea_g', params
+      follow_redirect!
       expect(User.find_by_username("aleksea_g").first_name).to eq("Alek")
+      expect(last_response.body).to include("Dive Log")
     end
 
     it 'does not allow any changes with invalid password' do
-      fill_in "email", with: "aki@do.com"
-      fill_in "password", with: "wrongpassword"
-      click_button("Update Your Details")
-      expect(last_response.location).to include('/aleksea_g/edit')
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "aki@do.com", new_password: "", new_password_check: "", password: "wrongpassword"}
+      patch '/users/aleksea_g', params
+      follow_redirect!
+      expect(last_response.body).to include('Please confirm your current password')
       expect(User.find_by_username("aleksea_g").email).to eq("al@bear.com")
+    end
+
+    it 'verifies new password and does not allow change if passwords do not match' do
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "al@bear.com", new_password: "newpassword", new_password_check: "notthenewpassword", password: "testing"}
+      patch '/users/aleksea_g', params
+      follow_redirect!
+      expect(last_response.body).to include('Please confirm your current password')
+    end
+
+    it 'allows a user to change their password' do
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "al@bear.com", new_password: "newpassword", new_password_check: "newpassword", password: "testing"}
+      patch '/users/aleksea_g', params
+      follow_redirect!
+      get '/logout'
+      params = {username: "aleksea_g", password: "newpassword"}
+      post '/login', params
+      expect(last_response.location).to include('/dives')
     end
   end
 

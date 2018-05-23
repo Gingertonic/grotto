@@ -4,3 +4,8 @@
   <p><%=dive.date%> - <%=dive.divesite.name%></p>
   <a href="/<%=@user.slug%>/<%=dive.divesite.slug%>/<%=dive.slug%>">See dive</a>
 <%end%>
+
+
+
+
+<button type="button" name="logout_button"><a href="/users/<%=@user.slug%>/edit">Edit your account details</a></button>

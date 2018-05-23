@@ -1,0 +1,21 @@
+<h1>Update your account details</h1>
+
+<form action="/users/<%=@user.slug%>" method="post">
+  <pre>
+    If you would like to change your password please do so here, otherwise leave blank!
+    <input type="hidden" name="_method" value="patch">
+    <input type="text" name="first_name" value="<%=@user.first_name%>">
+    <input type="text" name="last_name" value="<%=@user.last_name%>">
+    <input type="text" name="username" value="<%=@user.username%>">
+    <input type="text" name="email" value="<%=@user.email%>">
+    <br>
+    If you would like to change your password please do so here, otherwise leave blank!
+    <input type="password" name="new_password" placeholder="Your New Password">
+    <input type="password" name="new_password_check" placeholder="Repeat New Password">
+    <br>
+    Please confirm your current password to update any changes:
+    <input type="password" name="password" placeholder="Your Current Password">
+
+    <input type="submit" value="Update Your Details">
+  </pre>
+</form>
