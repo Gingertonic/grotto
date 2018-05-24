@@ -35,34 +35,42 @@ describe DivesController do
 
   describe 'new dive page'do
     before(:each) do
-      get '/logout'
-      params = {username: "aleksea_g", password: "testing"}
-      post '/login', params
-      get '/dives/new'
+      visit '/logout'
+      visit '/login'
+      fill_in 'username', with: "aleksea_g"
+      fill_in 'password', with: 'testing'
+      click_button 'Login'
+      # params = {username: "aleksea_g", password: "testing"}
+      # post '/login', params
+      visit '/dives/new'
     end
 
-    it 'shows a form with a submit button' do
-      expect(page).to have_selector("form")
-      expect(page).to have_selector("submit")
+    it 'loads the new dive page' do
+      # expect(last_response.body).to include('Log a new dive')
+      page.has_content?('Log a new dive')
     end
 
     it 'allows user to create a new dive' do
-      fill_in "date", with: "13/05/2016"
+      # visit '/dives/new'
+      # params = {date:'13/05/2016'}
+      # post '/dives/create', params
+      fill_in 'dive[date]', with: '13/05/2016'
+      choose 'living-seas-at-epcot'
       click_button("Log Dive")
       expect(User.find_by_username("aleksea_g").dives.count).to eq(3)
     end
 
     it 'does not allow dive to have a empty date' do
-      fill_in "date", with: ""
+      fill_in "dive[date]", with: ""
       click_button("Log Dive")
-      expect(last_response.location).to include('/dives/new')
+      page.has_content?('Choose a dive site or add a new one!')
     end
 
     it 'redirects to current users divelog if successfully added new dive' do
-      fill_in "date", with: "15/13/2012"
+      fill_in "dive[date]", with: "15/13/2012"
       click_button("Log Dive")
-      expect(last_response.location).to include('/divelogs/aleksea_g')
-      expect(last_response.body).to include('15/13/2012')
+      page.has_content?("Aleksea G's Dive Log")
+      page.has_content?('15/13/2012')
     end
   end
 
@@ -80,13 +88,13 @@ describe DivesController do
     end
 
     it 'allows user to edit a dive' do
-      fill_in "date", with: "13/05/2016"
+      fill_in "dive[date]", with: "13/05/2016"
       click_button("Update Dive")
       expect(User.find_by_username("aleksea_g").dives.count).to eq(3)
     end
 
     it 'does not allow dive to have a empty date' do
-      fill_in "date", with: ""
+      fill_in "dive[date]", with: ""
       click_button("Update Dive")
       expect(last_response.location).to include('/aleksea_g/ariels-grotto/17-04-2018/edit')
     end
@@ -100,7 +108,7 @@ describe DivesController do
     end
 
     it 'redirects to current users divelog if successful edit' do
-      fill_in "date", with: "12/12/2012"
+      fill_in "dive[date]", with: "12/12/2012"
       click_button("Update Dive")
       expect(last_response.location).to include('/divelogs/aleksea_g')
       expect(last_response.body).to include('12/12/2012')

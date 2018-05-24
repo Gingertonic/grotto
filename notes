@@ -2,6 +2,7 @@ NOTES
 
 CURRENT LIMITATIONS
 each user can only log 1 dive per divespot on a given date
+clunky divesite selection in new and edit page - better to group by country?
 
 TO DO
 - write a few tests

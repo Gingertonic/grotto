@@ -37,8 +37,9 @@ class Dive < ActiveRecord::Base
 
     d = d[1...2] if d.match(/^0/)
 
-
-    if d.match(/1$/)
+    if d.match(/^1/)
+      date = "#{d}th"
+    elsif d.match(/1$/)
       date = "#{d}st"
     elsif d.match(/2$/)
       date = "#{d}nd"
@@ -61,6 +62,7 @@ class Dive < ActiveRecord::Base
   end
 
   def self.find_by_user_divesite_and_date(params)
+    # binding.pry
     result = Dive.all.select {|dive| dive.user.slug == params[:user] && dive.divesite.slug == params[:divesite] && dive.slug == params[:date]}
     result.first
   end
