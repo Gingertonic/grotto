@@ -32,20 +32,21 @@ describe DivesitesController do
   end
 
   describe 'divesite show page' do
-    it 'shows information on 1 divesite' do
+    before(:each) do
+      dive3 = Dive.create(date: "01/30/2017", divesite_id: 2)
+      dive3.user = @beti
+      dive3.save
       params = {username: "aleksea_g", password: "testing"}
       post '/login', params
-      get '/divesites/ariels-grotto'
+      get '/divesites/indonesia/menjangan-island-bali/ariels-grotto'
+    end
+
+    it 'shows information on 1 divesite' do
       expect(last_response.body).to include("Ariels Grotto")
       expect(last_response.body).to_not include("Living Seas at Epcot")
     end
 
     it 'shows a list of all divers who have dived this site' do
-      dive3 = Dive.create(date: "01/30/2017")
-      dive3.user = @beti
-      params = {username: "aleksea_g", password: "testing"}
-      post '/login', params
-      get '/divesites/ariels-grotto'
       expect(last_response.body).to include("aleksea_g")
       expect(last_response.body).to_not include("Gingertonic")
     end
@@ -53,72 +54,76 @@ describe DivesitesController do
 
   describe 'new divesite page'do
     before(:each) do
-      get '/logout'
-      params = {username: "aleksea_g", password: "testing"}
-      post '/login', params
-      get '/divesites/new'
+      visit '/logout'
+      visit '/login'
+      fill_in 'username', with: "aleksea_g"
+      fill_in 'password', with: 'testing'
+      click_button 'Login'
+      visit '/divesites/new'
     end
 
     it 'shows a form with a submit button' do
       expect(page).to have_selector("form")
-      expect(page).to have_selector("submit")
+      expect(page).to have_button("Add Divesite")
     end
 
     it 'allows user to create a new divesite' do
-      fill_in "name", with: "Tritons Castle"
-      fill_in "location", with: "Under the Sea"
-      fill_in "country", with: "Disney Universe"
+      fill_in "divesite[name]", with: "Tritons Castle"
+      fill_in "divesite[location]", with: "Under the Sea"
+      fill_in "divesite[country]", with: "Disney Universe"
       click_button("Add Divesite")
       expect(Divesite.all.count).to eq(3)
     end
 
-    it 'does not allow dive to have a empty name' do
-      fill_in "location", with: "Under the Sea"
-      fill_in "country", with: "Disney Universe"
+    it 'does not allow divesite to have a empty name' do
+      fill_in "divesite[location]", with: "Under the Sea"
+      fill_in "divesite[country]", with: "Disney Universe"
       click_button("Add Divesite")
-      expect(last_response.location).to include('/divesite/new')
+      expect(page).to have_current_path('/divesites/new')
     end
 
     it 'redirects to list of divesites if successfully added new divesite' do
-      fill_in "name", with: "Tritons Castle"
-      fill_in "location", with: "Under the Sea"
-      fill_in "country", with: "Disney Universe"
+      fill_in "divesite[name]", with: "Tritons Castle"
+      fill_in "divesite[location]", with: "Under the Sea"
+      fill_in "divesite[country]", with: "Disney Universe"
       click_button("Add Divesite")
-      expect(last_response.location).to include('/divesites')
-      expect(last_response.body).to include('Tritons Castle')
+      expect(page).to have_current_path('/divesites/disney-universe/under-the-sea/tritons-castle')
+      expect(page).to have_content('Tritons Castle')
     end
   end
 
   describe 'edit dive page'do
     before(:each) do
-      get '/logout'
-      params = {username: "aleksea_g", password: "testing"}
-      post '/login', params
-      get '/divesites/ariels-grotto/edit'
+      visit '/logout'
+      visit '/login'
+      fill_in 'username', with: "aleksea_g"
+      fill_in 'password', with: 'testing'
+      click_button 'Login'
+      visit '/divesites/indonesia/menjangan-island-bali/ariels-grotto/edit'
     end
 
     it 'shows a form with a submit button' do
       expect(page).to have_selector("form")
-      expect(page).to have_selector("button")
+      expect(page).to have_button("Update Dive")
     end
 
     it 'allows user to edit a dive' do
       fill_in "country", with: "Disney Universe"
       click_button("Update Divesite")
-      expect(Divesite.find_by_slug("ariels-grotto").country).to eq("Disney Universe")
+      expect(Divesite.find(1).country).to eq("Disney Universe")
     end
 
     it 'does not allow dive to have a empty name' do
       fill_in "name", with: ""
       click_button("Update Divesite")
-      expect(last_response.location).to include('/divesites/ariels-grotto/edit')
+      expect(page).to have_current_path('/divesites/indonesia/menjangan-island-bali/ariels-grotto/edit')
     end
 
     it 'redirects to list of divesites if successfully edited divesite' do
       fill_in "name", with: "Ariels Cave"
       click_button("Update Divesite")
-      expect(last_response.location).to include('/divesites')
-      expect(last_response.body).to include("Ariels Cave")
+      expect(page).to have_current_path('/divesites')
+      expect(page).to have_content("Ariels Cave")
     end
   end
 

@@ -63,7 +63,7 @@ class Dive < ActiveRecord::Base
 
   def self.find_by_user_divesite_and_date(params)
     # binding.pry
-    result = Dive.all.select {|dive| dive.user.slug == params[:user] && dive.divesite.slug == params[:divesite] && dive.slug == params[:date]}
+    result = Dive.all.select {|dive| dive.user.slug == params[:user] && dive.divesite.slug == "#{params[:country].downcase}/#{params[:location].downcase}/#{params[:name].downcase}" && dive.slug == params[:date]}
     result.first
   end
 end
