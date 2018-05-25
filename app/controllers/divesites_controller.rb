@@ -1,7 +1,7 @@
 class DivesitesController < ApplicationController
 
   get '/divesites' do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
     # binding.pry
     @divesites = Divesite.all.sort_by{|site| site.country}
     @countries = Divesite.all.map {|ds| ds.country.downcase}.uniq.sort
@@ -9,22 +9,24 @@ class DivesitesController < ApplicationController
   end
 
   get '/divesites/:country/:location/:name/edit' do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
     erb :'divesites/edit'
   end
 
   get '/divesites/:country/:location/:name' do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
     erb :'divesites/show'
   end
 
   get '/divesites/new' do
+    redirect '/' if !logged_in?
     erb :'divesites/new'
   end
 
   post '/divesites' do
+    redirect '/login' if !logged_in?
     if params[:divesite][:name].empty? || params[:divesite][:location].empty?  || params[:divesite][:country].empty?
       flash[:alert] = "Divesite must have a name, location and country!"
       redirect "/divesites/new"
@@ -50,6 +52,7 @@ class DivesitesController < ApplicationController
   end
 
   patch '/divesites/:country/:location/:name' do
+    redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
     if params[:divesite][:name].empty? || params[:divesite][:location].empty?  || params[:divesite][:country].empty?
       flash[:alert] = "Divesite must have a name, location and country!"
@@ -76,6 +79,7 @@ class DivesitesController < ApplicationController
   end
 
   delete '/divesites/:country/:location/:name' do
+    redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
     @dives = Dive.all.find_all{|dive| dive.divesite == @divesite}
     affected_users = @dives.map{|dive| dive.user}.uniq

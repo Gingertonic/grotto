@@ -75,10 +75,6 @@ class ApplicationController < Sinatra::Base
       end
     end
 
-    def slugify(string)
-      string.downcase.split(" ").join("-").split(/[,!?*&#]/).join("")
-    end
-
   end
 
 end

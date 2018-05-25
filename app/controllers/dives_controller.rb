@@ -1,7 +1,7 @@
 class DivesController < ApplicationController
 
   get '/dives' do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
     @dives = Dive.all
     erb :'dives/index'
   end
@@ -19,7 +19,7 @@ class DivesController < ApplicationController
   end
 
   get '/:user/:country/:location/:name/:date/edit' do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
     @dive = Dive.find_by_user_divesite_and_date(params)
     if @dive.user != current_user
       flash[:alert] = "You can't make changes to another diver's log!"
@@ -30,6 +30,7 @@ class DivesController < ApplicationController
   end
 
   post '/dives' do
+    redirect '/login' if !logged_in?
     if params[:dive][:date].empty?
       flash[:alert] = "Dive must have a date!"
       redirect "/dives/new"
@@ -53,6 +54,7 @@ class DivesController < ApplicationController
   end
 
   patch '/:user/:country/:location/:name/:date' do
+    redirect '/login' if !logged_in?
     @dive = Dive.find_by_user_divesite_and_date(params)
     if params[:dive][:date].empty?
       flash[:alert] = "Dive must have a date!"
@@ -77,6 +79,7 @@ class DivesController < ApplicationController
   end
 
   delete '/:user/:country/:location/:name/:date' do
+    redirect '/login' if !logged_in?
     @dive = Dive.find_by_user_divesite_and_date(params)
     if @dive.user != current_user
       flash[:alert] = "You can't make changes to another diver's log!"

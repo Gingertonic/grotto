@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
 
   post '/create' do
+    redirect '/login' if !logged_in?
     if invalid_user?(params)
       flash[:alert] = "Sorry, that username is already taken!"
       redirect '/signup'
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   patch '/users/:slug' do
-    # binding.pry
+    redirect '/login' if !logged_in?
     @user = User.find_by_slug(params[:slug])
     if params[:email].empty?
       flash[:alert] = "You must provide an email address"
