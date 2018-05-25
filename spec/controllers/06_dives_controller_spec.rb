@@ -76,13 +76,17 @@ describe DivesController do
 
   describe 'edit dive page'do
     before(:each) do
-      get '/logout'
-      params = {username: "aleksea_g", password: "testing"}
-      post '/login', params
-      get '/aleksea_g/ariels-grotto/17-04-2018/edit'
+      visit '/logout'
+      visit '/login'
+      fill_in 'username', with: "aleksea_g"
+      fill_in 'password', with: 'testing'
+      click_button 'Login'
+      # params = {username: "aleksea_g", password: "testing"}
+      # post '/login', params
+      visit '/aleksea_g/ariels-grotto/17-04-2018/edit'
     end
 
-    it 'shows a form with a submit button' do
+    it 'shows a form with a form and submit button' do
       expect(page).to have_selector("form")
       expect(page).to have_selector("button")
     end
@@ -90,51 +94,55 @@ describe DivesController do
     it 'allows user to edit a dive' do
       fill_in "dive[date]", with: "13/05/2016"
       click_button("Update Dive")
-      expect(User.find_by_username("aleksea_g").dives.count).to eq(3)
+      expect(User.find_by_username("aleksea_g").dives.first.date).to eq("13/05/2016")
     end
 
     it 'does not allow dive to have a empty date' do
       fill_in "dive[date]", with: ""
       click_button("Update Dive")
-      expect(last_response.location).to include('/aleksea_g/ariels-grotto/17-04-2018/edit')
+      expect(page).to have_selector("form")
     end
 
     it 'does not allow a user to edit another users dive' do
-      get '/logout'
-      params = {username: "Gingertonic", password: "password"}
-      post '/login', params
-      get '/aleksea_g/ariels-grotto/17-04-2018/edit'
-      expect(last_response.body).to_not include('Update Dive')
+      visit '/logout'
+      visit '/login'
+      fill_in 'username', with: "Gingertonic"
+      fill_in 'password', with: 'password'
+      click_button 'Login'
+      visit '/aleksea_g/living-seas-at-epcot/01-30-2017/edit'
+      expect(page).not_to have_selector("form")
     end
 
     it 'redirects to current users divelog if successful edit' do
       fill_in "dive[date]", with: "12/12/2012"
       click_button("Update Dive")
-      expect(last_response.location).to include('/divelogs/aleksea_g')
-      expect(last_response.body).to include('12/12/2012')
+      expect(page).to have_current_path('/aleksea_g/ariels-grotto/12-12-2012')
     end
   end
 
   describe 'delete dive' do
     before(:each) do
-      get '/logout'
-      params = {username: "aleksea_g", password: "testing"}
-      post '/login', params
-      get '/aleksea_g/ariels-grotto/17-04-2018/edit'
+      visit '/logout'
+      visit '/login'
+      fill_in 'username', with: "aleksea_g"
+      fill_in 'password', with: 'testing'
+      click_button 'Login'
+      visit '/aleksea_g/ariels-grotto/17-04-2018'
     end
 
     it 'allows a user to delete a dive' do
-      get '/aleksea_g/ariels-grotto/17-04-2018'
       click_button("Delete Dive")
-      expect(Dive.find_by_user_divesite_and_date(user: aleksea_g, divesite: ariels-grotto, date: "17-04-2018")).to_not exist
+      expect(Dive.find_by_user_divesite_and_date(user: "aleksea_g", divesite: "ariels-grotto", date: "17-04-2018")).to eq(nil)
     end
 
     it 'does not allow a user to delete another users dive' do
-      get '/logout'
-      params = {username: "Gingertonic", password: "password"}
-      post '/login', params
+      visit '/logout'
+      visit '/login'
+      fill_in 'username', with: "Gingertonic"
+      fill_in 'password', with: 'password'
+      click_button 'Login'
       get '/aleksea_g/ariels-grotto/17-04-2018'
-      expect(last_response.body).to_not include('Delete Dive')
+      expect(page).to_not have_content('Delete Dive')
     end
   end
 end

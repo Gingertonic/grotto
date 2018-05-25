@@ -17,15 +17,46 @@ class DivesController < ApplicationController
   end
 
   get '/:user/:divesite/:date/edit' do
+    # binding.pry
     @dive = Dive.find_by_user_divesite_and_date(params)
+    if @dive.user != current_user
+      flash[:alert] = "You can't make changes to another diver's log!"
+      redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
+    end
+    @divesites = Divesite.all
     erb :'dives/edit'
   end
 
   post '/dives' do
-    # binding.pry
-    @new_divesite = Divesite.create(params[:divesite]) if params[:dive][:divesite_id].empty?
+    if params[:dive][:date].empty?
+      flash[:alert] = "Dive must have a date!"
+      redirect "/dives/new"
+    end
+    @new_divesite = Divesite.create(params[:new_site]) if params[:dive][:divesite_id].empty?
     @dive = current_user.dives.create(params[:dive])
     @dive.update(divesite: @new_divesite) if @new_divesite
     redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
+  end
+
+  patch '/:user/:divesite/:date' do
+    @dive = Dive.find_by_user_divesite_and_date(params)
+    if params[:dive][:date].empty?
+      flash[:alert] = "Dive must have a date!"
+      redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}/edit"
+    end
+    @new_divesite = Divesite.create(params[:new_site]) if params[:dive][:divesite_id].empty?
+    @dive.update(params[:dive])
+    @dive.update(divesite: @new_divesite) if @new_divesite
+    redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
+  end
+
+  delete '/:user/:divesite/:date' do
+    @dive = Dive.find_by_user_divesite_and_date(params)
+    if @dive.user != current_user
+      flash[:alert] = "You can't make changes to another diver's log!"
+      redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
+    end
+    @dive.destroy
+    redirect "/divelogs/#{@dive.user.slug}"
   end
 end

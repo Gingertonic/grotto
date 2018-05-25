@@ -13,7 +13,7 @@
     <%@divesites.each do |divesite| %>
       <input id="<%=divesite.slug%>" type="radio" name="dive[divesite_id]" value="<%=divesite.id%>"> <%=divesite.name%>, <%=divesite.location%>, <%=divesite.country%>
     <%end%>
-      <input type="radio" name="dive[divesite_id]" value=""> New: <input type="text" name="divesite[name]" placeholder="New divesite name"> <input type="text" name="divesite[location]" placeholder="New divesite location"> <input type="text" name="divesite[country]" placeholder="New divesite country">
+      <input type="radio" name="dive[divesite_id]" value=""> New: <input type="text" name="new_site[name]" placeholder="New divesite name"> <input type="text" name="new_site[location]" placeholder="New divesite location"> <input type="text" name="new_site[country]" placeholder="New divesite country">
   </pre>
 
     <button type="submit" name="Log Dive">Log Dive</button>

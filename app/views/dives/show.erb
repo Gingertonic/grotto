@@ -1,8 +1,16 @@
 <h1><%=@dive.user.username.titleize%>'s dive at <%=@dive.divesite.name%> on <%=@dive.full_date%></h1>
 
-<%if @dive.user != current_user%>
-  <button type="button" name="logout_button"><a href="/divelogs/<%=@dive.user.slug%>">Go to this user's divelog</a></button>
+
+<%if @dive.user == current_user%>
+  <button type="button" name="update_dive_button"><a href="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>/edit">Update this dive</a></button>
+  <form class="delete_dive" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit" name="Delete Dive">Delete Dive</button>
+  </form>
 <%end%>
-<button type="button" name="logout_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
+<%if @dive.user != current_user%>
+  <button type="button" name="divelog_button"><a href="/divelogs/<%=@dive.user.slug%>">Go to this user's divelog</a></button>
+<%end%>
+<button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
 <button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
 <button type="button" name="logout_button"><a href="/logout">Logout</a></button>

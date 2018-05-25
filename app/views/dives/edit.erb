@@ -1,1 +1,23 @@
 <h1>Edit your dive</h1>
+
+<form class="edit-dive-form" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
+  <pre>
+    <input type="hidden" name="_method" value="patch">
+    <input type="text" name="dive[date]" value="<%=@dive.date%>">
+    <input type="text" name="dive[time]" value="<%=@dive.time%>">
+    <input type="integer" name="dive[length]" value="<%=@dive.length%>">
+    <textarea name="dive[notes]"><%=@dive.notes%></textarea>
+  <pre>
+
+  <pre>
+    <h2>Choose a dive site or add a new one!</h2>
+    <%@divesites.each do |divesite| %>
+      <input type="radio" name="dive[divesite_id]" value="<%=divesite.id%>" <%='checked' if @dive.divesite == divesite%>> <%=divesite.name%>, <%=divesite.location%>, <%=divesite.country%>
+    <%end%>
+      <input type="radio" name="dive[divesite_id]" value=""> New: <input type="text" name="new_site[name]" placeholder="New divesite name"> <input type="text" name="new_site[location]" placeholder="New divesite location"> <input type="text" name="new_site[country]" placeholder="New divesite country">
+  </pre>
+
+    <button type="submit" name="Update Dive">Update Dive</button>
+
+
+</form>
