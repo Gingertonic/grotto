@@ -3,10 +3,10 @@
 <form class="edit-dive-form" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
   <pre>
     <input type="hidden" name="_method" value="patch">
-    <input type="text" name="dive[date]" value="<%=@dive.date%>">
-    <input type="text" name="dive[time]" value="<%=@dive.time%>">
-    <input type="integer" name="dive[length]" value="<%=@dive.length%>">
-    <textarea name="dive[notes]"><%=@dive.notes%></textarea>
+    <input type="text" name="dive[date]" placeholder="Dive date DD/MM/YYYY" value="<%=@dive.date%>">
+    <input type="text" name="dive[time]" placeholder="Start time" value="<%=@dive.time%>">
+    <input type="integer" name="dive[length]" placeholder="Length (in mins)" value="<%=@dive.length%>">
+    <textarea name="dive[notes]" placeholder="Your dive notes"><%=@dive.notes%></textarea>
   <pre>
 
   <pre>
@@ -21,3 +21,6 @@
 
 
 </form>
+<button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
+<button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
+<button type="button" name="logout_button"><a href="/logout">Logout</a></button>

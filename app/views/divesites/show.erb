@@ -11,7 +11,12 @@
   <%end%>
 <%end%>
 
-
+<button type="button" name="update_divesite_button"><a href="/divesites/<%=@divesite.slug%>/edit">Update this dive</a></button>
+<h2>Deleting this Divesite will also delete ALL dives logged at this site! Only do it if you're sure!</h2>
+<form class="delete_dive" action="/divesites/<%=@divesite.slug%>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" name="Delete Divesite">Delete Divesite</button>
+</form>
 <button type="button" name="divesites_button"><a href="/divesites">See all divesites</a></button>
 <button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
 <button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>

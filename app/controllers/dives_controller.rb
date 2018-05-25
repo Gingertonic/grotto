@@ -34,6 +34,10 @@ class DivesController < ApplicationController
       flash[:alert] = "Dive must have a date!"
       redirect "/dives/new"
     end
+    if !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
+      flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
+      redirect "/dives/new"
+    end
     @new_divesite = Divesite.create(params[:new_site]) if params[:dive][:divesite_id].empty?
     @dive = current_user.dives.create(params[:dive])
     @dive.update(divesite: @new_divesite) if @new_divesite
@@ -46,13 +50,17 @@ class DivesController < ApplicationController
       flash[:alert] = "Dive must have a date!"
       redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}/edit"
     end
+    if !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
+      flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
+      redirect "/dives/new"
+    end
     @new_divesite = Divesite.create(params[:new_site]) if params[:dive][:divesite_id].empty?
     @dive.update(params[:dive])
     @dive.update(divesite: @new_divesite) if @new_divesite
     redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
   end
 
-  delete '/:user/:divesite/:date' do
+  delete '/:user/:country/:location/:name/:date' do
     @dive = Dive.find_by_user_divesite_and_date(params)
     if @dive.user != current_user
       flash[:alert] = "You can't make changes to another diver's log!"

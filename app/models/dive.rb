@@ -1,5 +1,6 @@
 class Dive < ActiveRecord::Base
   validates :date, presence: true
+  validates_format_of :date, :with => /\d{2}\/\d{2}\/\d{4}/
   belongs_to :user
   belongs_to :divesite
 

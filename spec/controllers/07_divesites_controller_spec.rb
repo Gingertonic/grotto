@@ -108,21 +108,21 @@ describe DivesitesController do
     end
 
     it 'allows user to edit a dive' do
-      fill_in "country", with: "Disney Universe"
+      fill_in "divesite[country]", with: "Disney Universe"
       click_button("Update Divesite")
       expect(Divesite.find(1).country).to eq("Disney Universe")
     end
 
     it 'does not allow dive to have a empty name' do
-      fill_in "name", with: ""
+      fill_in "divesite[name]", with: ""
       click_button("Update Divesite")
       expect(page).to have_current_path('/divesites/indonesia/menjangan-island-bali/ariels-grotto/edit')
     end
 
     it 'redirects to list of divesites if successfully edited divesite' do
-      fill_in "name", with: "Ariels Cave"
+      fill_in "divesite[name]", with: "Ariels Cave"
       click_button("Update Divesite")
-      expect(page).to have_current_path('/divesites')
+      expect(page).to have_current_path('/divesites/indonesia/menjangan-island-bali/ariels-cave')
       expect(page).to have_content("Ariels Cave")
     end
   end
