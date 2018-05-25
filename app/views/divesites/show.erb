@@ -6,13 +6,13 @@
   <h2>No dives have been logged at <%=@divesite.name.titleize%> yet!</h2>
 <%else%>
   <h2>Who has dived <%=@divesite.name%>?</h2>
-  <%@divesite.users.each do |user|%>
+  <%@divesite.users.uniq.each do |user|%>
     <p><a href="/divelogs/<%=user.slug%>"><%=user.username.titleize%></a></p>
   <%end%>
 <%end%>
 
-<button type="button" name="update_divesite_button"><a href="/divesites/<%=@divesite.slug%>/edit">Update this dive</a></button>
-<h2>Deleting this Divesite will also delete ALL dives logged at this site! Only do it if you're sure!</h2>
+<button type="button" name="update_divesite_button"><a href="/divesites/<%=@divesite.slug%>/edit">Update this divesite</a></button>
+<p>You can only delete this divesite if no other Diver has logged a dive here. Any of your own dives logged here will be deleted. Only hit delete if you're sure!</p>
 <form class="delete_dive" action="/divesites/<%=@divesite.slug%>" method="post">
   <input type="hidden" name="_method" value="delete">
   <button type="submit" name="Delete Divesite">Delete Divesite</button>

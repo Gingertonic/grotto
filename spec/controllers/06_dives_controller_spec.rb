@@ -27,7 +27,7 @@ describe DivesController do
     it 'shows information on 1 dive'do
       params = {username: "aleksea_g", password: "testing"}
       post '/login', params
-      get '/aleksea_g/ariels-grotto/17-04-2018'
+      get '/aleksea_g/indonesia/menjangan-island-bali/ariels-grotto/17-04-2018'
       expect(last_response.body).to include("Ariels Grotto")
       expect(last_response.body).to_not include("Living Seas at Epcot")
     end
@@ -55,7 +55,7 @@ describe DivesController do
       # params = {date:'13/05/2016'}
       # post '/dives/create', params
       fill_in 'dive[date]', with: '13/05/2016'
-      choose 'living-seas-at-epcot'
+      choose "Living Seas at Epcot"
       click_button("Log Dive")
       expect(User.find_by_username("aleksea_g").dives.count).to eq(3)
     end
@@ -83,7 +83,7 @@ describe DivesController do
       click_button 'Login'
       # params = {username: "aleksea_g", password: "testing"}
       # post '/login', params
-      visit '/aleksea_g/ariels-grotto/17-04-2018/edit'
+      visit '/aleksea_g/indonesia/menjangan-island-bali/ariels-grotto/17-04-2018/edit'
     end
 
     it 'shows a form with a form and submit button' do
@@ -109,14 +109,14 @@ describe DivesController do
       fill_in 'username', with: "Gingertonic"
       fill_in 'password', with: 'password'
       click_button 'Login'
-      visit '/aleksea_g/living-seas-at-epcot/01-30-2017/edit'
+      visit '/aleksea_g/usa/disneyworld/living-seas-at-epcot/01-30-2017/edit'
       expect(page).not_to have_selector("form")
     end
 
     it 'redirects to current users divelog if successful edit' do
       fill_in "dive[date]", with: "12/12/2012"
       click_button("Update Dive")
-      expect(page).to have_current_path('/aleksea_g/ariels-grotto/12-12-2012')
+      expect(page).to have_current_path('/aleksea_g/indonesia/menjangan-island-bali/ariels-grotto/12-12-2012')
     end
   end
 
@@ -127,12 +127,12 @@ describe DivesController do
       fill_in 'username', with: "aleksea_g"
       fill_in 'password', with: 'testing'
       click_button 'Login'
-      visit '/aleksea_g/ariels-grotto/17-04-2018'
+      visit '/aleksea_g/indonesia/menjangan-island-bali/ariels-grotto/17-04-2018'
     end
 
     it 'allows a user to delete a dive' do
       click_button("Delete Dive")
-      expect(Dive.find_by_user_divesite_and_date(user: "aleksea_g", divesite: "ariels-grotto", date: "17-04-2018")).to eq(nil)
+      expect(Dive.find_by_user_divesite_and_date(user: "aleksea_g", name: "Ariels Grotto", location: "Menjangan Island, Bali", country: "Indonesia", date: "17-04-2018")).to eq(nil)
     end
 
     it 'does not allow a user to delete another users dive' do
@@ -141,7 +141,7 @@ describe DivesController do
       fill_in 'username', with: "Gingertonic"
       fill_in 'password', with: 'password'
       click_button 'Login'
-      get '/aleksea_g/ariels-grotto/17-04-2018'
+      visit '/aleksea_g/indonesia/menjangan-island-bali/ariels-grotto/17-04-2018'
       expect(page).to_not have_content('Delete Dive')
     end
   end

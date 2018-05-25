@@ -55,6 +55,30 @@ class ApplicationController < Sinatra::Base
     def current_user
       @current_user ||= User.find(session[:user_id]) if logged_in?
     end
+
+    def valid_date?(date)
+      e = date.split("/")
+      d = e.first
+      m = e.second
+      y = e.third
+      thirties = [9, 4, 7, 11]
+      if d.to_i > 29 && m.to_i == 2
+        false
+      elsif d.to_i > 30 && thirties.include?(m.to_i)
+        false
+      elsif d.to_i > 31 || d.to_i < 1
+        false
+      elsif m.to_i > 12
+        false
+      else
+        true
+      end
+    end
+
+    def slugify(string)
+      string.downcase.split(" ").join("-").split(/[,!?*&#]/).join("")
+    end
+
   end
 
 end

@@ -39,6 +39,10 @@ class DivesitesController < ApplicationController
         flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
         redirect "/divesites/new"
       end
+      if !valid_date?(params[:dive][:date])
+        flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
+        redirect "/divesites/new"
+      end
       @new_dive = current_user.dives.create(params[:dive])
       @new_dive.update(divesite: @new_divesite)
     end
@@ -59,7 +63,11 @@ class DivesitesController < ApplicationController
     if !params[:dive][:date].empty?
       if !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
         flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
-        redirect "/divesites/new"
+        redirect "/divesites/#{@divesite.slug}/edit"
+      end
+      if !valid_date?(params[:dive][:date])
+        flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
+        redirect "/divesites/#{@divesite.slug}/edit"
       end
       @new_dive = current_user.dives.create(params[:dive])
       @new_dive.update(divesite: @divesite)
@@ -70,6 +78,11 @@ class DivesitesController < ApplicationController
   delete '/divesites/:country/:location/:name' do
     @divesite = Divesite.find_by_slug(params)
     @dives = Dive.all.find_all{|dive| dive.divesite == @divesite}
+    affected_users = @dives.map{|dive| dive.user}.uniq
+    if affected_users.count > 1 || (affected_users.count == 1 && affected_users.first != current_user)
+      flash[:alert] = "Other people have logged dives here; you cannot delete this divesite!"
+      redirect "/divesites/#{@divesite.slug}"
+    end
     @dives.each {|dive| dive.destroy }
     @divesite.destroy
     redirect '/divesites'

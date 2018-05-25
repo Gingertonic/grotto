@@ -53,6 +53,7 @@ class Dive < ActiveRecord::Base
     full_date = "#{month} the #{date}, #{y}"
   end
 
+
   def slug
     date.split("/").join("-")
   end
@@ -63,7 +64,6 @@ class Dive < ActiveRecord::Base
   end
 
   def self.find_by_user_divesite_and_date(params)
-    # binding.pry
     result = Dive.all.select {|dive| dive.user.slug == params[:user] && dive.divesite.slug == "#{params[:country].downcase}/#{params[:location].downcase}/#{params[:name].downcase}" && dive.slug == params[:date]}
     result.first
   end

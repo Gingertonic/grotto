@@ -21,8 +21,10 @@ class Divesite < ActiveRecord::Base
   # end
 
   def self.find_by_slug(params)
-    result = Divesite.all.select {|ds| ds.slug == "#{params[:country].downcase}/#{params[:location].downcase}/#{params[:name].downcase}"}
+    # binding.pry
+    result = Divesite.all.select {|ds| ds.slug == "#{params[:country].downcase.split(" ").join("-").split(/[,!?*&#]/).join("")}/#{params[:location].downcase.split(" ").join("-").split(/[,!?*&#]/).join("")}/#{params[:name].downcase.split(" ").join("-").split(/[,!?*&#]/).join("")}"}
     result.first
   end
+
 
 end

@@ -38,7 +38,15 @@ class DivesController < ApplicationController
       flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
       redirect "/dives/new"
     end
-    @new_divesite = Divesite.create(params[:new_site]) if params[:dive][:divesite_id].empty?
+    if !valid_date?(params[:dive][:date])
+      flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
+      redirect "/dives/new"
+    end
+    if !params[:dive][:divesite_id] && (!params[:new_site] || (params[:new_site][:name].empty? || params[:new_site][:location].empty? || params[:new_site][:country].empty?))
+      flash[:alert] = "Please choose a divesite, or create a new one with a name, location and country."
+      redirect "/dives/new"
+    end
+    @new_divesite = Divesite.create(params[:new_site]) if (!params[:dive][:divesite_id] || params[:dive][:divesite_id].empty?)
     @dive = current_user.dives.create(params[:dive])
     @dive.update(divesite: @new_divesite) if @new_divesite
     redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
@@ -54,7 +62,15 @@ class DivesController < ApplicationController
       flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
       redirect "/dives/new"
     end
-    @new_divesite = Divesite.create(params[:new_site]) if params[:dive][:divesite_id].empty?
+    if !valid_date?(params[:dive][:date])
+      flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
+      redirect "/dives/new"
+    end
+    if !params[:dive][:divesite_id] && (!params[:new_site] || (params[:new_site][:name].empty? || params[:new_site][:location].empty? || params[:new_site][:country].empty?))
+      flash[:alert] = "Please choose a divesite, or create a new one with a name, location and country."
+      redirect "/dives/new"
+    end
+    @new_divesite = Divesite.create(params[:new_site]) if (!params[:dive][:divesite_id] || params[:dive][:divesite_id].empty?)
     @dive.update(params[:dive])
     @dive.update(divesite: @new_divesite) if @new_divesite
     redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"

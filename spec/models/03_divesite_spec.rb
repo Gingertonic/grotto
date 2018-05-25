@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Divesite do
   before(:each) do
-    @test_divesite = Divesite.create(name: "Ariels Grotto")
+    @test_divesite = Divesite.create(name: "Ariels Grotto", location: "Under the Sea", country: "Disney Universe")
   end
 
   # after do
@@ -59,14 +59,14 @@ describe Divesite do
 
   describe 'instance methods' do
     it 'can create a slug from the divesite name' do
-      expect(@test_divesite.slug).to eq("ariels-grotto")
+      expect(@test_divesite.slug).to eq("disney-universe/under-the-sea/ariels-grotto")
     end
   end
 
   describe 'class methods' do
     it 'can find a divesite from its slug' do
-      slug = "ariels-grotto"
-      expect(Divesite.find_by_slug(slug)).to eq(@test_divesite)
+      params = {name: "Ariels Grotto", location: "Under the Sea", country: "Disney Universe"}
+      expect(Divesite.find_by_slug(params)).to eq(@test_divesite)
     end
   end
 
