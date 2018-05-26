@@ -1,0 +1,119 @@
+NOTES
+
+CURRENT LIMITATIONS
+each user can only log 1 dive per divespot on a given date
+clunky divesite selection in new and edit page - better to group by country?
+
+TO DO
+- write a few tests
+- test the tests!
+
+Models:
+Users
+first name
+last name
+username
+email
+password/password_digest
+
+Dive
+date
+divesite_id
+user_id
+  (future feature, has 2 users? 2 dive buddies?)
+notes
+
+Divesites
+name
+users
+dives
+
+
+Structure:
+
+/ Homepage
+  -login
+  -signup
+
+/login
+
+/signup
+
+ISSUES THAT AROSE:
+WEDNESDAY
+wrong singularization of Dives (Dife!)
+fixed by adding activesupport gem and making an inflection file in config folder, required in config.ru
+
+tux not loading
+fixed by using require not require_relative in config.ru
+
+has_many, through assocatioan not working
+fixed by simplifying - join table was not required
+
+MONDAY
+Plan app and file structure (on paper/evernote)
+
+TUESDAY GOALS:
+finish writing tests
+get all model tests passing
+lecture on capybara testing
+
+WEDNESDAY
+RECORD 30min coding session
+get all controller tests passing
+update tests if needed (add capybara)
+pass updated test form tests
+get all basic views written
+22h30 - meeting with Katie
+
+THURSDAY
+complete technical requirements for assessment
+css - make it pretty!
+23h - meeting with TradeSchool
+00h30: Project Prep Office Hours sinatra
+
+FRIDAY
+06h30 Career Coach AMA
+record walkthrough
+write blogpost
+
+THINGS TO IMPROVE:
+design
+
+
+SATURDAY
+23h30: HTML/CSS Deep Dive
+
+after submit for assessment!
+Refine visual design - maybe some slight animation??? Bubbles?!
+[refactor/add features if desired] ON NEW FEATURE BRANCH! ONLY MERGE IF IT STILL WORKS!
+clone Fwitter, new repo, make it nice - Bwitish Banter?!
+
+
+
+USER STORIES:
+Aleksandar is a regular diver
+He can visit Grotto and see an index page where he can follow a link to sign up
+He can make a new account on Grotto and see all the dives logged by other users
+He can see a page dedicated to another user's dive. He cannot edit it or delete it
+He can look at a list of all the divesites that have been added to Grotto.
+He can see a page dedicated to a particular divesite and see a list of all the Grotto users who have logged a dive at that site.
+He can edit the divesite but only if it still has a name, location and country AND the updated divesite details do not create a duplicate of another divesite.
+He can delete a divesite but only if no other users have logged a dive there.
+He can see his own divelog - at the moment it is empty!
+He can log a new dive as long as it has a valid date (format DD/MM/YYYY) and the date is valid
+He can see his new dive on his divelog
+He can see his new dive on the dives index with all the other users' dives
+He can see a page dedicated to any of his dives
+He can edit any of his dives as long as they still have a valid date
+He can delete any of his dives
+He can create a new divesite at the same time as he logs a new dive as long as the divesite and dive are both valid
+He can log a new dive at the same time as he creates a new divesite as long as the divesite and dive are both valid
+
+He can edit his user account details as long his password is validated and he has a first name, last name, username and email.
+He can change his password as long as he validates with his old password
+He can logout and be redirected to a login page
+
+He can visit the website again later and from the welcome page he can follow a link to login
+He can login from the login page and all his dives are still available
+He can navigate away from the Grotto website without logging out and when he returns, he does not have to sign in
