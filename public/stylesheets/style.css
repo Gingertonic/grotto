@@ -1,0 +1,35 @@
+/* Background Image */
+.main {
+    background-image: "public/images/nature-2609434_1280.jpg");
+}
+
+
+/* Circular GMap */
+.iframe-outer {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    margin-left: 25%;
+}
+
+    .iframe-outer:after {
+        content: '';
+        display: block;
+        margin-top: 100%;
+    }
+
+.iframe-inner {
+    overflow: hidden;
+    border-radius: 5000px;
+    transition: all ease .2s;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+    .iframe-inner iframe {
+        height: 120%;
+        width: 120%;
+    }

@@ -2,11 +2,11 @@ class UsersController < ApplicationController
 
   get '/signup' do
     redirect '/dives' if logged_in?
-    erb :"users/signup"
+    @outside_view = true
+    erb :"users/new"
   end
 
   post '/create' do
-    redirect '/login' if !logged_in?
     if invalid_user?(params)
       flash[:alert] = "Sorry, that username is already taken!"
       redirect '/signup'
@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   end
 
   get '/users/:slug/edit' do
+    redirect '/dives' if !current_user
     redirect '/login' if !logged_in?
     @user = User.find_by_slug(params[:slug])
     if @user != current_user

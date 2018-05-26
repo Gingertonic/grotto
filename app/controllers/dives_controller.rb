@@ -7,13 +7,14 @@ class DivesController < ApplicationController
   end
 
   get '/:user/:country/:location/:name/:date'do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
    @dive = Dive.find_by_user_divesite_and_date(params)
+   @mapsrc = "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=#{@dive.divesite.location}+#{@dive.divesite.country}&zoom=15"
    erb :'dives/show'
   end
 
   get '/dives/new' do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
     @divesites = Divesite.all
     erb :'dives/new'
   end
@@ -62,15 +63,15 @@ class DivesController < ApplicationController
     end
     if !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
       flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
-      redirect "/dives/new"
+      redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}/edit"
     end
     if !valid_date?(params[:dive][:date])
       flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
-      redirect "/dives/new"
+      redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}/edit"
     end
     if !params[:dive][:divesite_id] && (!params[:new_site] || (params[:new_site][:name].empty? || params[:new_site][:location].empty? || params[:new_site][:country].empty?))
       flash[:alert] = "Please choose a divesite, or create a new one with a name, location and country."
-      redirect "/dives/new"
+      redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}/edit"
     end
     @new_divesite = Divesite.create(params[:new_site]) if (!params[:dive][:divesite_id] || params[:dive][:divesite_id].empty?)
     @dive.update(params[:dive])

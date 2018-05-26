@@ -17,11 +17,14 @@ class DivesitesController < ApplicationController
   get '/divesites/:country/:location/:name' do
     redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
+    @mapsrc = "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=dive+centers+in+#{@divesite.location}+#{@divesite.country}&zoom=10"
+    affected_users = @divesite.dives.map{|dive| dive.user}.uniq
+    @destroyable = true if affected_users.count == 0 || (affected_users.count == 1 && affected_users.first == current_user)
     erb :'divesites/show'
   end
 
   get '/divesites/new' do
-    redirect '/' if !logged_in?
+    redirect '/login' if !logged_in?
     erb :'divesites/new'
   end
 
@@ -45,6 +48,7 @@ class DivesitesController < ApplicationController
         flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
         redirect "/divesites/new"
       end
+
       @new_dive = current_user.dives.create(params[:dive])
       @new_dive.update(divesite: @new_divesite)
     end

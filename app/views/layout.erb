@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
     <title>Grotto</title>
   </head>
   <body>
@@ -13,7 +14,16 @@
       </div>
     <%end%>
 
-    <%= yield %>
+    <% if !@outside_view %>
+      <nav>
+        A nav bar
+      </nav>
+    <% end %>
 
+    <div class="page">
+      <%= yield %>
+    </dive>
+
+    <footer><p>&copy <a href="http://thegingertonicstudios.com" target="blank">The Gingertonic Studios</a></p></footer>
   </body>
 </html>

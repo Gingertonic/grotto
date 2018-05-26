@@ -1,14 +1,22 @@
+<a name="top">
 <h1>All Divesites</h1>
 
 <%@countries.each do |this_country|%>
+  <a href="#<%=this_country.split(" ").join("-")%>"><%=this_country.titleize%></a>
+<%end%>
+
+<%@countries.each do |this_country|%>
 <pre>
-<h3 id="this_country"><%=this_country.titleize%></h3>
+<a name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
   <%@divesites.find_all {|ds| ds.country.downcase == this_country.downcase}.sort_by{|ds| ds.location}.each do |divesite|%>
     <a href="/divesites/<%=divesite.slug%>"><%=divesite.name.titleize%></a> - <%=divesite.location.titleize%>
   <%end%>
 <%end%>
 </pre>
 
+<a href="#top">Back to top</a>
+
+<a href="/dives"><button type="button" name="dives_button">Back to dives newsfeed</button></a>
 <button type="button" name="new_divesite_button"><a href="/divesites/new">Add a new divesite</a></button>
 <button type="button" name="new_dive_button"><a href="/dives/new">Log a new dive</a></button>
 <button type="button" name="logout_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>

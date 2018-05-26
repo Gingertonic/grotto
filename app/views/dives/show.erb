@@ -1,5 +1,23 @@
-<h1><%=@dive.user.username.titleize%>'s dive at <%=@dive.divesite.name%> on <%=@dive.full_date%></h1>
+<h1><%=@dive.user.username.titleize%>'s dive at <a href="/divesites/<%=@dive.divesite.slug%>"><%=@dive.divesite.name%></a>, <%=@dive.divesite.location%>, <%=@dive.divesite.country%> on <%=@dive.full_date%></h1>
 
+<pre>
+<strong>Start time</strong>: <%=@dive.time%>
+<strong>Length</strong>: <%=@dive.length%> minutes
+<strong>Notes</strong>:
+  <%=@dive.notes%>
+</pre>
+
+<div class="iframe-outer">
+  <div class="iframe-inner">
+    <iframe
+      width="600"
+      height="450"
+      frameborder="0" style="border:0"
+      src="<%=@mapsrc%>"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
 
 <%if @dive.user == current_user%>
   <button type="button" name="update_dive_button"><a href="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>/edit">Update this dive</a></button>

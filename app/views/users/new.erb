@@ -3,9 +3,10 @@
 <form action="/create" method="post">
   <input type="text" name="first_name" placeholder="First name">
   <input type="text" name="last_name" placeholder="Last name">
-  <input type="text" name="username" placeholder="Username">
-  <input type="text" name="email" placeholder=Email>
+  <input type="text" name="username" placeholder="Username" pattern="^\S*$" title="No spaces please! how about a hypen or underscore instead?">
+  <input type="text" name="email" placeholder=Email pattern="^\S*@\S*\.\S*$" title="Please enter a valid email">
   <input type="password" name="password" placeholder="Password">
+  <input type="password" name="password_confirmation" placeholder="Confirm Your Password">
 
   <input type="submit" value="Sign up">
 </form>

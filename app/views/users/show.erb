@@ -9,10 +9,13 @@
 <br></br>
 
 
+<%if @user != current_user%>
+  <button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
+<%end%>
+<button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
 <%if @user == current_user%>
   <button type="button" name="edit_button"><a href="/users/<%=@user.slug%>/edit">Edit your account details</a></button>
+  <button type="button" name="divesites_button"><a href="/divesites">See all divesites</a></button>
+  <button type="button" name="new_dive_button"><a href="/dives/new">Log a new dive</a></button>
 <%end%>
-
-<button type="button" name="new_dive_button"><a href="/dives/new">Log a new dive</a></button>
-<button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
 <button type="button" name="logout_button"><a href="/logout">Logout</a></button>
