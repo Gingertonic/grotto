@@ -1,31 +1,52 @@
-<h1>Edit <%=@divesite.name.titleize%>, <%=@divesite.location.titleize%>, <%=@divesite.country.titleize%></h1>
+
+<div class="centered_feed round_rec">
+
+  <div class="dives_index_wrapper clear-fix">
+
+    <h1 class="inside_titles divelog_title">Edit divesite</h1>
+
+    <form action="/divesites/<%=@divesite.slug%>" method="post">
+      <input type="hidden" name="_method" value="patch">
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="divesite[name]" placeholder="Divesite name" value="<%=@divesite.name.titleize%>">
+      </div>
+      <div class="row">
+        <input class="triple_column_inputs not_first" type="text" name="divesite[location]" placeholder="Location" value="<%=@divesite.location.titleize%>">
+        <input class="triple_column_inputs not_first" type="text" name="divesite[country]" placeholder="Country" value="<%=@divesite.country.titleize%>">
+      </div>
+  <br></br>
+    <br></br>
+
+<div class="row">
+<pre>
+<p>Are you also logging a new dive at this divesite?
+If so, here's the place to do it!</p></pre>
+</div>
+<div class="row">
+  <input class="triple_column_inputs" type="text" id="date" name="dive[date]" placeholder="Dive date DD/MM/YYYY">
+  <input class="triple_column_inputs not_first" type="text" name="dive[time]" placeholder="Start time">
+  <input class="triple_column_inputs not_first" type="integer" name="dive[length]" placeholder="Length(mins)">
+</div>
+<div class="row">
+  <textarea rows="5" class="triple_column_inputs" name="dive[notes]" placeholder="Your dive notes"></textarea>
+</div>
+<br></br>
+  <br></br>
+    <br></br>
 
 
-<form class="edit-divesite-form" action="/divesites/<%=@divesite.slug%>" method="post">
-  <input type="hidden" name="_method" value="patch">
-  <pre>
-    <input type="text" name="divesite[name]" placeholder="Divesite name" value="<%=@divesite.name.titleize%>">
-    <input type="text" name="divesite[location]" placeholder="Location" value="<%=@divesite.location.titleize%>">
-    <input type="text" name="divesite[country]" placeholder="Country" value="<%=@divesite.country.titleize%>">
-  <pre>
+        <div class="row">
+        <pre>
+        <p>All dives logged at this divesite will be updated.
+          Are you sure you want to go ahead?</p></pre>
+        </div>
+      <div class="row">
+        <input class="single_column_links" type="submit" value="Update Divesite">
+      </div>
 
-  <pre>
-    <h2>Are you also logging a new dive at this divesite? If so, here's the place to do it!</h2>
-    <pre>
-      <input type="text" id="date" name="dive[date]" placeholder="Dive date DD/MM/YYYY">
-      <input type="text" name="dive[time]" placeholder="Start time">
-      <input type="integer" name="dive[length]" placeholder="Length(mins)">
-      <textarea name="dive[notes]" placeholder="Your dive notes"></textarea>
-    <pre>
-  </pre>
-
-    <p>All dives logged at this divesite will be updated. Are you sure you want to go ahead?</p>
-    <button type="submit" name="Update Divesite">Update Divesite</button>
+      <br></br>
+    </form>
 
 
-</form>
-
-<button type="button" name="divesites_button"><a href="/divesites">Back to all divesites</a></button>
-<button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
-<button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
-<button type="button" name="logout_button"><a href="/logout">Logout</a></button>
+  </div>
+</div>

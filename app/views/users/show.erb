@@ -1,21 +1,49 @@
-<h1><%=@user.username.titleize%>'s Dive Log</h1>
 
-<%@user.dives.each do |dive| %>
-  <pre>
-  <%=dive.date%> - <a href="/divesites/<%=dive.divesite.slug%>"><%=dive.divesite.name.titleize%></a>, <%=dive.divesite.location.titleize%>, <%=dive.divesite.country.titleize%>
-    <a href="/<%=dive.user.slug%>/<%=dive.divesite.slug%>/<%=dive.slug%>">See dive</a>
-  </pre>
-  <%end%>
-<br></br>
+<div class="centered_feed round_rec">
+    <!-- <p class="welcome">Welcome inside, <%=current_user.username.titleize %>!</p> -->
+
+  <div class="dives_index_wrapper clear-fix">
+
+    <h1 class="inside_titles divelog_title"><%=@user.username.titleize%>'s Log</h1>
+    <%if @user == current_user%>
+      <div class="row">
+        <a class="dual_column_links" href="/users/<%=@user.slug%>/edit">Edit your account details</a>
+        <a class="dual_column_links not_first" href="/dives/new">Log a new dive</a>
+      </div>
+    <%end%>
+    <br></br>
+    <br></br>
+    <img class="divelog-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Hobby_diver.jpg" alt="diver">
+
+    <%if @user.dives.empty? && @user == current_user%>
+      <p class="inside-comments">You have not logged any dives yet!</p>
+    <%elsif @user.dives.empty?%>
+      <p class="inside-comments"><%=@user.username.titleize%> has not logged any dives yet!</p>
+    <%end%>
+    <br></br>
+    <br></br>
+    <br></br>
+
+    <!-- <h1>Latest Dives</h1> -->
+    <div id="divelog" class="list">
+
+      </div>
+      <hr>
+      <%@user.dives.reverse.each do |dive| %>
+        <pre>
+        <%=dive.date%> :: <a href="/<%=dive.user.slug%>/<%=dive.divesite.slug%>/<%=dive.slug%>">See dive</a>
+        <a href="/divesites/<%=dive.divesite.slug%>"><%=dive.divesite.name.titleize%></a>, <%=dive.divesite.location.titleize%>, <%=dive.divesite.country.titleize%>
+        </pre>
+        <hr>
+      <%end%>
 
 
-<%if @user != current_user%>
-  <button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
-<%end%>
-<button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
-<%if @user == current_user%>
-  <button type="button" name="edit_button"><a href="/users/<%=@user.slug%>/edit">Edit your account details</a></button>
-  <button type="button" name="divesites_button"><a href="/divesites">See all divesites</a></button>
-  <button type="button" name="new_dive_button"><a href="/dives/new">Log a new dive</a></button>
-<%end%>
-<button type="button" name="logout_button"><a href="/logout">Logout</a></button>
+      <%if !@user.dives.empty?%>
+        <p class="inside-comments">That's all!</p>
+      <%end%>
+    </div> <!-- list -->
+    <br></br>
+
+
+  </div>
+</div>

@@ -2,28 +2,41 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Grotto</title>
   </head>
   <body>
+    <!-- <img id="background" src="../images/sea-1652866_1280.jpg" alt="background bubbles"> -->
 
-    <% flash.keys.each do |type| %>
-      <div data-alert class="flash <%= type %> alert-box radius">
-        <%= flash[type] %>
-        <a href="#" class="close">&times;</a>
-      </div>
-    <%end%>
 
     <% if !@outside_view %>
-      <nav>
-        A nav bar
-      </nav>
+      <div id="navbar" class="light-fade">
+        <div class="wrapper">
+          <nav class="clearfix">
+            <a class="all_dives" href="/dives">All Dives</a><a href="/divesites">Divesites</a><a href="/divelogs/<%=current_user.slug%>">My Divelog</a><a href="/users/<%=current_user.slug%>/edit">My Account Details</a><a href="/logout">Logout</a>
+          </nav>
+        </div><!-- .wrapper -->
+      </div><!-- #navbar -->
     <% end %>
 
     <div class="page">
-      <%= yield %>
-    </dive>
+      <% flash.keys.each do |type| %>
+        <div data-alert class="flash <%= type %> alert-box radius">
+          <%= flash[type] %>
+          <a href="#" class="close">&times;</a>
+        </div>
+      <%end%>
 
-    <footer><p>&copy <a href="http://thegingertonicstudios.com" target="blank">The Gingertonic Studios</a></p></footer>
+      <%= yield %>
+
+      <footer>
+        <div id="footer-content">
+          <p class="tag">&copy <a class="clean_link" href="http://thegingertonicstudios.com" target="blank">The Gingertonic Studios</a> 2018 <a class="twit" href="https://twitter.com/GingertonicSt" title="Twitter"><i class="fa fa-twitter"></i></a> <a class="github" href="https://github.com/gingertonic" title="Github"><i class="fa fa-github"></i></a> <a class="insta" href="http://instagram.com/thegingertonicstudios" title="Insta"><i class="fa fa-instagram"></i></a></p>
+        </div> <!--end footer content div-->
+      </footer>
+    </div> <!--page-->
+
   </body>
 </html>

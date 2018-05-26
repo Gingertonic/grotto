@@ -1,21 +1,41 @@
-<h1>Update your account details</h1>
+<div class="centered_feed round_rec">
 
-<form action="/users/<%=@user.slug%>" method="post">
-  <pre>
-    If you would like to change your password please do so here, otherwise leave blank!
-    <input type="hidden" name="_method" value="patch">
-    <input type="text" name="first_name" value="<%=@user.first_name%>">
-    <input type="text" name="last_name" value="<%=@user.last_name%>">
-    <input type="text" name="username" value="<%=@user.username%>" pattern="^\S*$" title="No spaces please! how about a hypen or underscore instead?">
-    <input type="text" name="email" value="<%=@user.email%>" pattern="^\S*@\S*\.\S*$" title="Please enter a valid email">
-    <br>
-    If you would like to change your password please do so here, otherwise leave blank!
-    <input type="password" name="new_password" placeholder="Your New Password">
-    <input type="password" name="new_password_check" placeholder="Repeat New Password">
-    <br>
-    Please confirm your current password to update any changes:
-    <input type="password" name="password" placeholder="Your Current Password">
+  <div class="dives_index_wrapper clear-fix">
 
-    <input type="submit" value="Update Your Details">
-  </pre>
-</form>
+    <h1 class="inside_titles divelog_title">Update your account details</h1>
+
+    <form action="/users/<%=@user.slug%>" method="post">
+      <input type="hidden" name="_method" value="patch">
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="first_name" value="<%=@user.first_name%>">
+        <input class="triple_column_inputs not_first" type="text" name="last_name" value="<%=@user.last_name%>">
+      </div>
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="username" value="<%=@user.username%>" pattern="^\S*$" title="No spaces please! how about a hypen or underscore instead?">
+        <input class="triple_column_inputs not_first" type="text" name="email" value="<%=@user.email%>" pattern="^\S*@\S*\.\S*$" title="Please enter a valid email">
+      </div>
+
+      <br></br>
+        <br></br>
+<pre>
+<p class="center-text">If you would like to change your password
+please do so here, otherwise leave blank!</p></pre>
+<div class="row">
+<input class="triple_column_inputs" type="password" name="new_password" placeholder="New Password">
+<input class="triple_column_inputs not_first" type="password" name="password_confirmation" placeholder="Confirm Password">
+</div>
+<br></br>
+  <br></br>
+<pre>
+Please confirm your current password to update any changes:
+</pre>
+<input class="triple_column_inputs" type="password" name="password" placeholder="Your Current Password">
+<input class="triple_column_inputs not_first" type="submit" value="Update Details">
+</div>
+
+
+    </form>
+
+
+  </div>
+</div>

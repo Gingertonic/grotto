@@ -38,7 +38,7 @@ class Dive < ActiveRecord::Base
 
     d = d[1...2] if d.match(/^0/)
 
-    if d.match(/^1/)
+    if d.match(/^1./)
       date = "#{d}th"
     elsif d.match(/1$/)
       date = "#{d}st"
@@ -49,6 +49,8 @@ class Dive < ActiveRecord::Base
     elsif d.match(/[4567890]$/)
       date = "#{d}th"
     end
+
+
 
     full_date = "#{month} the #{date}, #{y}"
   end

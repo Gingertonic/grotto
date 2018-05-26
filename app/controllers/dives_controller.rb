@@ -9,13 +9,14 @@ class DivesController < ApplicationController
   get '/:user/:country/:location/:name/:date'do
     redirect '/login' if !logged_in?
    @dive = Dive.find_by_user_divesite_and_date(params)
-   @mapsrc = "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=#{@dive.divesite.location}+#{@dive.divesite.country}&zoom=15"
+   @mapsrc = "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=#{@dive.divesite.location}+#{@dive.divesite.country}&zoom=14"
    erb :'dives/show'
   end
 
   get '/dives/new' do
     redirect '/login' if !logged_in?
     @divesites = Divesite.all
+    @countries = Divesite.all.map {|ds| ds.country.downcase}.uniq.sort
     erb :'dives/new'
   end
 
@@ -27,6 +28,7 @@ class DivesController < ApplicationController
       redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
     end
     @divesites = Divesite.all
+    @countries = Divesite.all.map {|ds| ds.country.downcase}.uniq.sort
     erb :'dives/edit'
   end
 

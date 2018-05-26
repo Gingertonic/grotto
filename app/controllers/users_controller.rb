@@ -46,7 +46,8 @@ class UsersController < ApplicationController
     end
     params.each {|k, v| @user.update(k => v, "password" => params[:password]) if !!@user[k]}
     if !params[:new_password].empty?
-      if !@user.update(password: params[:new_password], password_confirmation: params[:new_password_check])
+      # binding.pry
+      if params[:new_password] != params[:password_confirmation]
         flash[:alert] = "Your new passwords do not match"
         redirect "/users/#{@user.slug}/edit"
       end
