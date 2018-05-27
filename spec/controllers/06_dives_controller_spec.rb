@@ -86,9 +86,8 @@ describe DivesController do
       visit '/aleksea_g/indonesia/menjangan-island-bali/ariels-grotto/17-04-2018/edit'
     end
 
-    it 'shows a form with a form and submit button' do
+    it 'shows a form with a form ' do
       expect(page).to have_selector("form")
-      expect(page).to have_selector("button")
     end
 
     it 'allows user to edit a dive' do

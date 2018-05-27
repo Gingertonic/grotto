@@ -23,7 +23,7 @@ describe UsersController do
   describe 'sign up page' do
     it 'loads the sign up page' do
       get '/signup'
-      expect(last_response.body).to include("Create an account")
+      expect(last_response.body).to include("Welcome to the")
     end
 
     it 'directs new users to the feed of all users\' dives' do
@@ -70,13 +70,13 @@ describe UsersController do
     end
 
     it 'allows user to update their details' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Schofield", email: "al@bear.com", new_password: "", new_password_check: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Schofield", email: "al@bear.com", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       expect(User.find_by_username("aleksea_g").last_name).to eq("Schofield")
     end
 
     it 'does not allow user to have an empty email' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "", new_password: "", new_password_check: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(last_response.body).to include('Please confirm your current password')
@@ -87,22 +87,22 @@ describe UsersController do
       params = {username: "Gingertonic", password: "password"}
       post '/login', params
       get '/divelogs/aleksea_g/edit'
-      params = {username: "aleksea_g", first_name: "Bobby", last_name: "Gakovic", email: "al@bear.com", new_password: "", new_password_check: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Bobby", last_name: "Gakovic", email: "al@bear.com", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
-      expect(last_response.body).to include('Dive Log')
+      expect(last_response.body).to include("Aleksea G's Log")
     end
 
     it 'redirects to current users divelog if successful edit' do
-      params = {username: "aleksea_g", first_name: "Alek", last_name: "Gakovic", email: "al@bear.com", new_password: "", new_password_check: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Alek", last_name: "Gakovic", email: "al@bear.com", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(User.find_by_username("aleksea_g").first_name).to eq("Alek")
-      expect(last_response.body).to include("Dive Log")
+      expect(last_response.body).to include("Aleksea G's Log")
     end
 
     it 'does not allow any changes with invalid password' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "aki@do.com", new_password: "", new_password_check: "", password: "wrongpassword"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "aki@do.com", new_password: "", password_confirmation: "", password: "wrongpassword"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(last_response.body).to include('Please confirm your current password')
@@ -110,20 +110,43 @@ describe UsersController do
     end
 
     it 'verifies new password and does not allow change if passwords do not match' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "al@bear.com", new_password: "newpassword", new_password_check: "notthenewpassword", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "al@bear.com", new_password: "newpassword", password_confirmation: "notthenewpassword", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(last_response.body).to include('Please confirm your current password')
     end
 
+    it '(2nd test) verifies new password and does not allow change if passwords do not match' do
+      visit '/login'
+      fill_in 'username', with: 'aleksea_g'
+      fill_in 'password', with: 'testing'
+      click_button 'Login'
+
+      visit '/users/aleksea_g/edit'
+
+      fill_in 'new_password', with: "new"
+      fill_in 'password_confirmation', with: "notnew"
+      fill_in 'password', with: "testing"
+
+      click_button 'Update Details'
+      expect(page).to have_current_path('/users/aleksea_g/edit')
+    end
+
     it 'allows a user to change their password' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "al@bear.com", new_password: "newpassword", new_password_check: "newpassword", password: "testing"}
-      patch '/users/aleksea_g', params
-      follow_redirect!
-      get '/logout'
-      params = {username: "aleksea_g", password: "newpassword"}
-      post '/login', params
-      expect(last_response.location).to include('/dives')
+      visit '/login'
+      fill_in 'username', with: 'aleksea_g'
+      fill_in 'password', with: 'testing'
+      click_button 'Login'
+
+      visit '/users/aleksea_g/edit'
+
+      fill_in 'new_password', with: "new"
+      fill_in 'password_confirmation', with: "new"
+      fill_in 'password', with: "testing"
+
+      click_button 'Update Details'
+      expect(page).to have_current_path('/divelogs/aleksea_g')
+
     end
   end
 
