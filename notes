@@ -95,7 +95,7 @@ clone Fwitter, new repo, make it nice - Bwitish Banter?!
 
 
 SUNDAY
-retest and rewrite tests if necessary (label names etc) ( 9 failures only yay )
+x retest and rewrite tests if necessary (label names etc) ( 9 failures only yay )
 tidy html...
 fill in spec.md
 update readme

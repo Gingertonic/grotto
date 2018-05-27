@@ -1,21 +1,18 @@
 
 
 <div class="centered_divesite round_rec">
-    <!-- <p class="welcome">Welcome inside, <%=current_user.username.titleize %>!</p> -->
 
   <div class="divesite_index_wrapper clear-fix">
 
     <div class="row">
-      <div class="divesite_column left">
 
-        <!-- <pre class="divesite_pre_text">
-        <%=@dive.user.username.titleize%>'s dive at
-        </pre> -->
-        <h1 class="divesite_titles"><a href="/divesites/<%=@dive.divesite.slug%>"><%=@dive.divesite.name.titleize%></a></h1>
-        <pre class="divesite_pre_text">
-        <%=@dive.divesite.location.titleize%>,
-        <%=@dive.divesite.country.titleize%>
-        </pre>
+      <div class="divesite_column left">
+      <h1 class="divesite_titles"><a href="/divesites/<%=@dive.divesite.slug%>"><%=@dive.divesite.name.titleize%></a></h1>
+      <pre class="divesite_pre_text">
+      <%=@dive.divesite.location.titleize%>,
+      <%=@dive.divesite.country.titleize%>
+      </pre>
+
           <div class="row">
             <%if @dive.user == current_user%>
               <a class="single_column_links" href="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>/edit">Update Dive</a>
@@ -23,15 +20,18 @@
               <a class="single_column_links" href="/divelogs/<%=@dive.user.slug%>">Visit this user's divelog</a>
             <%end%>
           </div>
-<br></br>
+
+          <br></br>
+
 <pre class="divesite_pre_text center-text">
 <strong>Diver</strong>: <%=@dive.user.username.titleize%>
 <strong>Date</strong>: <%=@dive.full_date%>
 <strong>Start time</strong>: <%=@dive.time%>
 <strong>Length</strong>: <%=@dive.length%> minutes
+</pre>
 
-        </pre>
-<br></br>
+        <br></br>
+
         <%if @dive.user == current_user%>
           <form class="delete_dive" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
             <input type="hidden" name="_method" value="delete">
@@ -39,11 +39,12 @@
           </form>
         <%end%>
 
-          </div>
+      </div>
 
       <div class="divesite_column not_first">
         <!-- <p>Hidden column</p> -->
       </div>
+
       <div class="divesite_column not_first">
         <!-- <p>Hidden column</p> -->
       </div>
@@ -52,10 +53,10 @@
         <!-- <div id="divelog" class="list"> -->
 
 
-<br></br>
+      <br></br>
 
 
-<h1 class="divesite_titles right">Notes</h1>
+      <h1 class="divesite_titles right">Notes</h1>
 <%if @dive.notes%>
 <pre class="divesite_pre_text center-text notes">
 <%=@dive.notes%>
@@ -65,22 +66,15 @@
 </pre>
 <%end%>
 
-
-
-
-        <!--</div> list -->
-      <!-- </div> -->
         </div>
-        <br></br>
+
       </div> <!-- row-->
 
-  </div>
+  </div> <!-- wrapper -->
 
+</div> <!-- centered -->
 
-<!-- </div> -->
-</div>
 <div class="large_centered circle">
-  <!-- <div class="iframe-outer"> -->
     <div class="iframe-inner">
       <iframe
         width="600"
@@ -90,5 +84,4 @@
         allowfullscreen>
       </iframe>
     </div>
-  <!-- </div>  -->
 </div>

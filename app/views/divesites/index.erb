@@ -1,7 +1,9 @@
 
 <div class="centered_feed round_rec">
 <a name="top">
+
   <div class="dives_index_wrapper clear-fix">
+
     <p class="header-comments">Welcome inside, <%=current_user.username.titleize%>!</p>
     <h1 class="inside_titles index_title">All Divesites</h1>
 
@@ -9,35 +11,29 @@
       <a class="dual_column_links" href="/divesites/new">Add a new divesite</a>
       <a class="dual_column_links not_first" href="/dives/new">Log a new dive</a>
     </div>
+
     <br></br>
+
     <div id="countries">
       <%@countries.each do |this_country|%>
         <a id="countries" href="#<%=this_country.split(" ").join("-")%>"><%=this_country.titleize%></a>
       <%end%>
     </div>
 
-
     <br></br>
-    <!-- <h1>Latest Dives</h1> -->
-    <div id="all-divesites" class="list">
-
-        </div>
 
       <%@countries.each do |this_country|%>
-      <pre>
-      <a name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
-        <%@divesites.find_all {|ds| ds.country.downcase == this_country.downcase}.sort_by{|ds| ds.location}.each do |divesite|%>
-          <a href="/divesites/<%=divesite.slug%>"><%=divesite.name.titleize%></a> - <%=divesite.location.titleize%>
-        <%end%>
-      <%end%>
-      </pre>
+  <pre>
+  <a name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
+    <%@divesites.find_all {|ds| ds.country.downcase == this_country.downcase}.sort_by{|ds| ds.location}.each do |divesite|%>
+      <a href="/divesites/<%=divesite.slug%>"><%=divesite.name.titleize%></a> - <%=divesite.location.titleize%>
+    <%end%>
+  <%end%>
+  <a href="#top"><p class="inside-comments">Back to top</p></a>
+  </pre>
+  
 
-        <a href="#top"><p class="inside-comments">Back to top</p></a>
-
-
-    </div> <!-- list -->
-    <br></br>
-
+    </div> <!-- wrapper -->
 
   </div>
 </div>

@@ -143,6 +143,7 @@ div .centered_divesite {
         height: 500px;
         background-color: rgb(231,253,253);
         overflow: scroll;
+        white-space: wrap;
 }
 
 .round_rec {
@@ -226,6 +227,7 @@ p .notes {
 
 .divesite_pre_text {
   font-size: 1.5vmin;
+  word-wrap: break-word;
   white-space: pre-wrap;
 }
 

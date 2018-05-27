@@ -2,31 +2,30 @@
 <div class="centered_feed round_rec">
 
   <div class="dives_index_wrapper clear-fix">
+
     <p class="header-comments">Welcome inside, <%=current_user.username.titleize%>!</p>
     <h1 class="inside_titles index_title">Latest Dives</h1>
-    <!-- <h1>Latest Dives</h1> -->
+
     <div class="row">
       <a class="dual_column_links" href="/divesites/new">Add a new divesite</a>
       <a class="dual_column_links not_first" href="/dives/new">Log a new dive</a>
     </div>
-    <br></br>
-    <div id="all-dives" class="list">
 
-      </div>
+    <br></br>
+
+    <hr>
+
+    <%@dives.reverse.each do |dive| %>
+      <pre>   <strong><a href="/divelogs/<%=dive.user.slug%>"><%=dive.user.username%></a></strong>
+      <%=dive.date%> :: <a href="/<%=dive.user.slug%>/<%=dive.divesite.slug%>/<%=dive.slug%>">See dive</a>
+      <a href="/divesites/<%=dive.divesite.slug%>"><%=dive.divesite.name.titleize%></a>, <%=dive.divesite.location.titleize%>, <%=dive.divesite.country.titleize%>
+      </pre>
       <hr>
-      <%@dives.reverse.each do |dive| %>
-        <pre><strong><a href="/divelogs/<%=dive.user.slug%>"><%=dive.user.username%></a></strong>
-          <%=dive.date%> :: <a href="/<%=dive.user.slug%>/<%=dive.divesite.slug%>/<%=dive.slug%>">See dive</a>
-          <a href="/divesites/<%=dive.divesite.slug%>"><%=dive.divesite.name.titleize%></a>, <%=dive.divesite.location.titleize%>, <%=dive.divesite.country.titleize%>
-        </pre>
-        <hr>
-      <%end%>
-        <p class="inside-comments">That's all the logged dives we have!</p>
+    <%end%>
 
-
-    </div> <!-- list -->
-    <br></br>
+    <p class="inside-comments">That's all the logged dives we have!</p>
 
 
   </div>
+
 </div>
