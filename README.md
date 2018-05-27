@@ -20,12 +20,17 @@ To run this app on a local server:
   1. In a bash terminal of your choice run:
     + `git clone git@github.com:Gingertonic/grotto.git` to use SSH or
     + `git clone https://github.com/Gingertonic/grotto.git` to use HTTPS
-  2. Run `cd grotto` then `bundle install`
-  4. Run `rake db:seed` if you'd like to see this working with some pre-made Divers!
-  5. Run `shotgun` and open the link provided in your browser. (Usually `http://localhost:9393/`)
-  6. Play!
+  2. Run `cd grotto`
+  3. Run `shotgun` and navigate to the address provided (Usually `127.0.0.1:9393`)
+    + if a port number is given instead go to `http://localhost:<port>/` (Usually `http://localhost:9393`)
+  4. Play!
     + You can make you own account or you can use these credentials to log in as a pre-made user:
       + username: `gingertonic` / password: `password`
+      
+   - If you encounter any problems or cannot access the gingertonic test account, run these steps after step 2 above)
+    2. a) run `bundle install`
+    2. b) Run `rake db:seed`
+    3. as above (run `shotgun`)
 
 
 ## This is created for a Flatiron School Portfolio Project
