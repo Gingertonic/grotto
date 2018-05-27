@@ -24,6 +24,8 @@ To run this app on a local server:
   4. Run `rake db:seed` if you'd like to see this working with some pre-made Divers!
   5. Run `shotgun` and open the link provided in your browser. (Usually `http://localhost:9393/`)
   6. Play!
+    + You can make you own account or you can use these credentials to log in as a pre-made user:
+      + username: `gingertonic` / password: `password`
 
 
 ## This is created for a Flatiron School Portfolio Project
