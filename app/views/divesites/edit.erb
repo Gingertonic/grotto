@@ -8,11 +8,11 @@
     <form action="/divesites/<%=@divesite.slug%>" method="post">
       <input type="hidden" name="_method" value="patch">
       <div class="row">
-        <input class="triple_column_inputs" type="text" name="divesite[name]" placeholder="Divesite name" value="<%=@divesite.name.titleize%>">
+        <input class="single_column_inputs" type="text" name="divesite[name]" placeholder="Divesite name" value="<%=@divesite.name.titleize%>">
       </div>
       <div class="row">
-        <input class="triple_column_inputs not_first" type="text" name="divesite[location]" placeholder="Location" value="<%=@divesite.location.titleize%>">
-        <input class="triple_column_inputs not_first" type="text" name="divesite[country]" placeholder="Country" value="<%=@divesite.country.titleize%>">
+        <input class="dual_column_inputs" type="text" name="divesite[location]" placeholder="Location" value="<%=@divesite.location.titleize%>">
+        <input class="dual_column_inputs not_first" type="text" name="divesite[country]" placeholder="Country" value="<%=@divesite.country.titleize%>">
       </div>
 
       <br></br>
@@ -32,7 +32,7 @@ If so, here's the place to do it!</p></pre>
 
 
       <div class="row">
-        <textarea rows="5" class="triple_column_inputs" name="dive[notes]" placeholder="Your dive notes"></textarea>
+        <textarea rows="5" class="single_column_inputs" name="dive[notes]" placeholder="Your dive notes"></textarea>
       </div>
 
       <br></br>

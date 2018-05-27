@@ -35,7 +35,7 @@
         <%if @dive.user == current_user%>
           <form class="delete_dive" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
             <input type="hidden" name="_method" value="delete">
-            <input class="triple_column_inputs" type="submit" value="Delete Dive">
+            <input class="single_column_inputs" type="submit" value="Delete Dive">
           </form>
         <%end%>
 

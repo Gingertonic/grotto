@@ -55,12 +55,14 @@ deleted. Only hit delete
 if you're sure!</pre>
             <%end%>
 
-            <div class="row">
-              <form class="single_column_links" action="/divesites/<%=@divesite.slug%>" method="post">
-                <input type="hidden" name="_method" value="delete">
-                <input class="triple_column_inputs" type="submit" value="Delete Divesite">
-              </form>
-            </div>
+
+            <form action="/divesites/<%=@divesite.slug%>" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <div class="row">
+                <input class="single_column_links" type="submit" value="Delete Divesite">
+              </div>
+            </form>
+
 
             <%end%>
 

@@ -278,10 +278,16 @@ p .notes {
 /* Column layout */
 * {
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
 .row {
     display: flex;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;
     /* background-color: grey; */
 }
 
@@ -305,9 +311,28 @@ p .notes {
     font-size: 1em;
 }
 
+.single_column_inputs {
+    width: 100%;
+    background-color: rgb(5,64,83);
+    color: rgb(137,235,237);
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Sunflower', sans-serif;
+    font-size: 1em;
+}
+
+.dual_column_inputs {
+    width: 49.5%;
+    background-color: rgb(5,64,83);
+    color: rgb(137,235,237);
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Sunflower', sans-serif;
+    font-size: 1em;
+}
 
 .triple_column_inputs {
-    width: 100%;
+    width: 33.33%;
     background-color: rgb(5,64,83);
     color: rgb(137,235,237);
     text-align: center;
