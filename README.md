@@ -28,9 +28,9 @@ To run this app on a local server:
       + username: `gingertonic` / password: `password`
       
    - If you encounter any problems or cannot access the gingertonic test account, run these steps after step 2 above)
-    2. a) run `bundle install`
-    2. b) Run `rake db:seed`
-    3. as above (run `shotgun`)
+    3. run `bundle install`
+    4. Run `rake db:seed`
+    5. Back to step 3 as above (run `shotgun`)
 
 
 ## This is created for a Flatiron School Portfolio Project
