@@ -20,12 +20,17 @@ To run this app on a local server:
   1. In a bash terminal of your choice run:
     + `git clone git@github.com:Gingertonic/grotto.git` to use SSH or
     + `git clone https://github.com/Gingertonic/grotto.git` to use HTTPS
-  2. Run `cd grotto` then `bundle install`
-  4. Run `rake db:seed` if you'd like to see this working with some pre-made Divers!
-  5. Run `shotgun` and open the link provided in your browser. (Usually `http://localhost:9393/`)
-  6. Play!
+  2. Run `cd grotto`
+  3. Run `shotgun` and navigate to the address provided (Usually `127.0.0.1:9393`)
+    + if a port number is given instead go to `http://localhost:<port>/` (Usually `http://localhost:9393`)
+  4. Play!
     + You can make you own account or you can use these credentials to log in as a pre-made user:
       + username: `gingertonic` / password: `password`
+      
+   - If you encounter any problems or cannot access the gingertonic test account, run these steps after step 2 above)
+    3. run `bundle install`
+    4. Run `rake db:seed`
+    5. Back to step 3 as above (run `shotgun`)
 
 
 ## This is created for a Flatiron School Portfolio Project
@@ -67,3 +72,16 @@ After submitting your pull request, I will review it as soon as I can.
 It would super extra awesome if you can
   + Include tests for you new features
   + Make a relevant commit message and add a solid description with the request.
+  
+## License
+ 
+The MIT License (MIT)
+
+Copyright (c) 2015 Chris Kibble
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
