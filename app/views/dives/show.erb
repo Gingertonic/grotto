@@ -57,7 +57,7 @@
 
 
       <h1 class="divesite_titles right">Notes</h1>
-<%if @dive.notes%>
+<%if !@dive.notes.empty?%>
 <pre class="divesite_pre_text center-text notes">
 <%=@dive.notes%>
 <%else%>
