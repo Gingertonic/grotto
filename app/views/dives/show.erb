@@ -1,16 +1,87 @@
-<h1><%=@dive.user.username.titleize%>'s dive at <%=@dive.divesite.name%> on <%=@dive.full_date%></h1>
 
 
-<%if @dive.user == current_user%>
-  <button type="button" name="update_dive_button"><a href="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>/edit">Update this dive</a></button>
-  <form class="delete_dive" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <button type="submit" name="Delete Dive">Delete Dive</button>
-  </form>
+<div class="centered_divesite round_rec">
+
+  <div class="divesite_index_wrapper clear-fix">
+
+    <div class="row">
+
+      <div class="divesite_column left">
+      <h1 class="divesite_titles"><a href="/divesites/<%=@dive.divesite.slug%>"><%=@dive.divesite.name.titleize%></a></h1>
+      <pre class="divesite_pre_text">
+      <%=@dive.divesite.location.titleize%>,
+      <%=@dive.divesite.country.titleize%>
+      </pre>
+
+          <div class="row">
+            <%if @dive.user == current_user%>
+              <a class="single_column_links" href="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>/edit">Update Dive</a>
+            <%else%>
+              <a class="single_column_links" href="/divelogs/<%=@dive.user.slug%>">Visit this user's divelog</a>
+            <%end%>
+          </div>
+
+          <br></br>
+
+<pre class="divesite_pre_text center-text">
+<strong>Diver</strong>: <%=@dive.user.username.titleize%>
+<strong>Date</strong>: <%=@dive.full_date%>
+<strong>Start time</strong>: <%=@dive.time%>
+<strong>Length</strong>: <%=@dive.length%> minutes
+</pre>
+
+        <br></br>
+
+        <%if @dive.user == current_user%>
+          <form class="delete_dive" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input class="triple_column_inputs" type="submit" value="Delete Dive">
+          </form>
+        <%end%>
+
+      </div>
+
+      <div class="divesite_column not_first">
+        <!-- <p>Hidden column</p> -->
+      </div>
+
+      <div class="divesite_column not_first">
+        <!-- <p>Hidden column</p> -->
+      </div>
+
+      <div class="divesite_column right not_first">
+        <!-- <div id="divelog" class="list"> -->
+
+
+      <br></br>
+
+
+      <h1 class="divesite_titles right">Notes</h1>
+<%if @dive.notes%>
+<pre class="divesite_pre_text center-text notes">
+<%=@dive.notes%>
+<%else%>
+<pre class="divesite_pre_text center-text">
+<p>No notes recorded!</p>
+</pre>
 <%end%>
-<%if @dive.user != current_user%>
-  <button type="button" name="divelog_button"><a href="/divelogs/<%=@dive.user.slug%>">Go to this user's divelog</a></button>
-<%end%>
-<button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
-<button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
-<button type="button" name="logout_button"><a href="/logout">Logout</a></button>
+
+        </div>
+
+      </div> <!-- row-->
+
+  </div> <!-- wrapper -->
+
+</div> <!-- centered -->
+
+<div class="large_centered circle">
+    <div class="iframe-inner">
+      <iframe
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src="<%=@mapsrc%>"
+        allowfullscreen>
+      </iframe>
+    </div>
+</div>

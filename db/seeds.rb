@@ -27,7 +27,7 @@ chris.save
 sarah.save
 
 grotto = Divesite.create({name: "Ariels Grotto", location: "Menjangan Island, Bali", country: "Indonesia"})
-epcot = Divesite.create({name: "Living Seas at Epcot", location: "Disneyworld", country: "USA"})
+epcot = Divesite.create({name: "Living Seas at Epcot", location: "Disneyworld", country: "U.S.A"})
 dropoff = Divesite.create({name: "The Dropoff", location: "Atuauro", country: "Timor Leste"})
 flats = Divesite.create({name: "Sandy Flats", location: "Nana Beach, Crete", country: "Greece"})
 mermaid_grove = Divesite.create({name: "Mermaid Grove", location: "Fantasy Island", country: "My Mind"})

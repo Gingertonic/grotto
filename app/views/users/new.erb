@@ -1,0 +1,33 @@
+
+<div class="centered circle">
+
+  <div class="center_wrapper">
+
+    <p class="outside_titles">Welcome to the</p>
+    <h1 class="outside_logo">GROTTO...</h1>
+
+    <form action="/create" method="post">
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="first_name" placeholder="First name">
+        <input class="triple_column_inputs not_first" name="last_name" placeholder="Last name">
+        <input class="triple_column_inputs not_first" name="username" placeholder="Username" pattern="^\S*$" title="No spaces please! how about a hypen or underscore instead?">
+      </div>
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="email" placeholder=Email pattern="^\S*@\S*\.\S*$" title="Please enter a valid email">
+        <input class="triple_column_inputs not_first" type="password" name="password" placeholder="Password">
+        <input class="triple_column_inputs not_first" type="password" name="password_confirmation" placeholder="Confirm Password">
+      </div>
+      <div class="row">
+        <input class="single_column_links" type="submit" value="Sign up">
+      </div>
+
+      <br></br>
+
+      <div class="row">
+        <a class="single_column_links" href="/login">Already have an account? Login this way...</a>
+      </div>
+
+    </form>
+
+  </div>
+</div>

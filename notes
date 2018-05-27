@@ -3,6 +3,7 @@ NOTES
 CURRENT LIMITATIONS
 each user can only log 1 dive per divespot on a given date
 clunky divesite selection in new and edit page - better to group by country?
+Add PADI and SSI qualifications
 
 TO DO
 - write a few tests
@@ -78,7 +79,8 @@ record walkthrough
 write blogpost
 
 THINGS TO IMPROVE:
-design
+design overall
+all buttons to be wrapped in links, not links inside (to avoid the underline)
 
 
 SATURDAY
@@ -86,34 +88,48 @@ SATURDAY
 
 after submit for assessment!
 Refine visual design - maybe some slight animation??? Bubbles?!
+make erb nicer...
+
 [refactor/add features if desired] ON NEW FEATURE BRANCH! ONLY MERGE IF IT STILL WORKS!
 clone Fwitter, new repo, make it nice - Bwitish Banter?!
+
+
+SUNDAY
+x retest and rewrite tests if necessary (label names etc) ( 9 failures only yay )
+tidy html...
+fill in spec.md
+update readme
+improve seeds
+record walkthrough
+write blog
+submit for assessment
 
 
 
 USER STORIES:
 Aleksandar is a regular diver
-He can visit Grotto and see an index page where he can follow a link to sign up
-He can make a new account on Grotto and see all the dives logged by other users
-He can see a page dedicated to another user's dive. He cannot edit it or delete it
-He can look at a list of all the divesites that have been added to Grotto.
-He can see a page dedicated to a particular divesite and see a list of all the Grotto users who have logged a dive at that site.
-He can edit the divesite but only if it still has a name, location and country AND the updated divesite details do not create a duplicate of another divesite.
-He can delete a divesite but only if no other users have logged a dive there.
-He can see his own divelog - at the moment it is empty!
-He can log a new dive as long as it has a valid date (format DD/MM/YYYY) and the date is valid
-He can see his new dive on his divelog
-He can see his new dive on the dives index with all the other users' dives
-He can see a page dedicated to any of his dives
-He can edit any of his dives as long as they still have a valid date
-He can delete any of his dives
-He can create a new divesite at the same time as he logs a new dive as long as the divesite and dive are both valid
-He can log a new dive at the same time as he creates a new divesite as long as the divesite and dive are both valid
+    He can visit Grotto and see an index page where he can follow a link to sign up
+    He can make a new account on Grotto and see all the dives logged by other users
+    He can see a page dedicated to another user's dive. He cannot edit it or delete it
+    He can see another user's divelog
+    He can look at a list of all the divesites that have been added to Grotto.
+    He can see a page dedicated to a particular divesite and see a list of all the Grotto users who have logged a dive at that site as well as local dive centres.
+    He can edit the divesite but only if it still has a name, location and country AND the updated divesite details do not create a duplicate of another divesite.
+    He can delete a divesite but only if no other users have logged a dive there.
+    He can see his own divelog - at the moment it is empty!
+    He can log a new dive as long as it has a valid date (format DD/MM/YYYY) and the date is valid
+    He can see his new dive on his divelog
+    He can see his new dive on the dives index with all the other users' dives
+    He can see a page dedicated to any of his dives
+    He can edit any of his dives as long as they still have a valid date
+    He can delete any of his dives
+    He can create a new divesite at the same time as he logs a new dive as long as the divesite and dive are both valid
+    He can log a new dive at the same time as he creates a new divesite as long as the divesite and dive are both valid
 
-He can edit his user account details as long his password is validated and he has a first name, last name, username and email.
-He can change his password as long as he validates with his old password
-He can logout and be redirected to a login page
+    He can edit his user account details as long his password is validated and he has a first name, last name, username and email.
+    He can change his password as long as he validates with his old password
+    He can logout and be redirected to a login page
 
-He can visit the website again later and from the welcome page he can follow a link to login
-He can login from the login page and all his dives are still available
-He can navigate away from the Grotto website without logging out and when he returns, he does not have to sign in
+    He can visit the website again later and from the welcome page he can follow a link to login
+    He can login from the login page and all his dives are still available
+    He can navigate away from the Grotto website without logging out and when he returns, he does not have to sign in

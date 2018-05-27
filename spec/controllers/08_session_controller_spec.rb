@@ -23,7 +23,7 @@ describe SessionController do
     it 'loads the login page' do
       get '/login'
       expect(last_response.status).to eq(200)
-      expect(last_response.body).to include("Login to the Grotto")
+      expect(last_response.body).to include("Enter the")
     end
 
     describe 'log in page' do
@@ -32,16 +32,15 @@ describe SessionController do
         visit '/login'
       end
 
-      it 'goes to a page with a login form and submit button' do
+      it 'goes to a page with a login form' do
         expect(page).to have_selector('form')
-        expect(page).to have_selector('button')
       end
 
       it 'lets a user login' do
-        fill_in "username", with: "Gingertonic"
-        fill_in "password", with: "password"
+        fill_in "username", with: "aleksea_g"
+        fill_in "password", with: "testing"
         click_button("Login")
-        expect(page).to have_content("Gingertonic")
+        expect(page).to have_content("Aleksea G")
       end
     end
 

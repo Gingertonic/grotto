@@ -2,6 +2,7 @@ class SessionController < ApplicationController
 
   get '/login' do
     redirect '/dives' if logged_in?
+    @outside_view = true
     erb :"sessions/login"
   end
 

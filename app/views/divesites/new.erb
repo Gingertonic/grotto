@@ -1,23 +1,51 @@
-<h1>Add a new divesite</h1>
+<div class="centered_feed round_rec">
 
-<form class="new-divesite-form" action="/divesites" method="post">
-  <pre>
-    <input type="text" name="divesite[name]" placeholder="Divesite name">
-    <input type="text" name="divesite[location]" placeholder="Location">
-    <input type="text" name="divesite[country]" placeholder="Country">
-  <pre>
+  <div class="dives_index_wrapper clear-fix">
 
-  <pre>
-    <h2>Are you also logging a new dive at this divesite? If so, here's the place to do it!</h2>
-    <pre>
-      <input type="text" id="date" name="dive[date]" placeholder="Dive date DD/MM/YYYY">
-      <input type="text" name="dive[time]" placeholder="Start time">
-      <input type="integer" name="dive[length]" placeholder="Length(mins)">
-      <textarea name="dive[notes]" placeholder="Your dive notes"></textarea>
-    <pre>
-  </pre>
+    <h1 class="inside_titles divelog_title">Add a new divesite</h1>
 
-    <button type="submit" name="Add Divesite">Add Divesite</button>
+    <form action="/divesites" method="post">
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="divesite[name]" placeholder="Divesite name">
+      </div>
+      <div class="row">
+        <input class="triple_column_inputs not_first" type="text" name="divesite[location]" placeholder="Location">
+        <input class="triple_column_inputs not_first" type="text" name="divesite[country]" placeholder="Country">
+      </div>
+
+      <br></br>
+      <br></br>
+      <br></br>
+
+      <div class="row">
+<pre>
+<p>Are you also logging a new dive at this divesite?
+If so, here's the place to do it!</p></pre>
+      </div>
+
+      <div class="row">
+        <input class="triple_column_inputs" type="text" id="date" name="dive[date]" placeholder="Dive date DD/MM/YYYY">
+        <input class="triple_column_inputs not_first" type="text" name="dive[time]" placeholder="Start time">
+        <input class="triple_column_inputs not_first" type="integer" name="dive[length]" placeholder="Length(mins)">
+      </div>
+
+      <div class="row">
+        <textarea rows="5" class="triple_column_inputs" name="dive[notes]" placeholder="Your dive notes"></textarea>
+      </div>
+
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+      <div class="row">
+        <input class="single_column_links" type="submit" value="Add Divesite">
+      </div>
+
+      <br></br>
+      
+    </form>
 
 
-</form>
+  </div>
+</div>

@@ -11,25 +11,33 @@
     <!-- <img id="background" src="../images/sea-1652866_1280.jpg" alt="background bubbles"> -->
 
 
-    <% if !@outside_view %>
-      <div id="navbar" class="light-fade">
-        <div class="wrapper">
-          <nav class="clearfix">
-            <a class="all_dives" href="/dives">All Dives</a><a href="/divesites">Divesites</a><a href="/divelogs/<%=current_user.slug%>">My Divelog</a><a href="/users/<%=current_user.slug%>/edit">My Account Details</a><a href="/logout">Logout</a>
-          </nav>
-        </div><!-- .wrapper -->
-      </div><!-- #navbar -->
-    <% end %>
+    
 
     <div class="page">
-      <% flash.keys.each do |type| %>
-        <div data-alert class="flash <%= type %> alert-box radius">
-          <%= flash[type] %>
-          <a href="#" class="close">&times;</a>
-        </div>
-      <%end%>
+      
 
-      <%= yield %>
+      <div class="centered circle">
+  <div class="center_wrapper">
+    <p class="outside_titles">Enter the</p>
+    <h1 class="outside_logo">GROTTO...</h1>
+
+    <form action="/login" method="post">
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="username" placeholder="Username">
+        <input class="triple_column_inputs not_first" type="password" name="password" placeholder="Password">
+        <input class = "triple_column_inputs not_first" type="submit" value="Login">
+      </div>
+      <br></br>
+      <div class="row">
+        <a class="single_column_links" href="/signup">No account yet? Right this way...</a>
+        <!-- <a class="dual_column_links not_first" href="/login">Login</a> -->
+      </div>
+    </form>
+
+
+  </div>
+</div>
+
 
       <footer>
         <div id="footer-content">

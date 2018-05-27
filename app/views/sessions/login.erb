@@ -1,10 +1,24 @@
-<h1>Login to the Grotto...</h1>
+<div class="centered circle">
 
-<form action="/login" method="post">
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <input type="submit" value="Login">
-</form>
+  <div class="center_wrapper">
 
+    <p class="outside_titles">Enter the</p>
+    <h1 class="outside_logo">GROTTO...</h1>
 
-<button type="button" name="signup_button"><a href="/signup">Don't have an account yet? Create one over here...</a></button>
+    <form action="/login" method="post">
+      <div class="row">
+        <input class="triple_column_inputs" type="text" name="username" placeholder="Username">
+        <input class="triple_column_inputs not_first" type="password" name="password" placeholder="Password">
+        <input class = "triple_column_inputs not_first" type="submit" value="Login">
+      </div>
+
+      <br></br>
+
+      <div class="row">
+        <a class="single_column_links" href="/signup">No account yet? Right this way...</a>
+      </div>
+
+    </form>
+
+  </div>
+</div>

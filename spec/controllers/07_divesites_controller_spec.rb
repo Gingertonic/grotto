@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DivesitesController do
   before(:each) do
-    @beti = User.create({first_name: "Beth", last_name: "Schofield", username: "Gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
+    @beti = User.create({first_name: "Beth", last_name: "Schofield", username: "beti_leti", email: "thegingertonicstudios@gmail.com", password: "password"})
     aki = User.create({first_name: "Aleksandar", last_name: "Gakovic", username: "aleksea_g", email: "al@bear.com", password: "testing"})
     dive1 = Dive.create(date: "17/04/2018")
     dive2 = Dive.create(date: "01/30/2017")
@@ -48,7 +48,7 @@ describe DivesitesController do
 
     it 'shows a list of all divers who have dived this site' do
       expect(last_response.body).to include("aleksea_g")
-      expect(last_response.body).to_not include("Gingertonic")
+      expect(last_response.body).to_not include("Beti Leti")
     end
   end
 

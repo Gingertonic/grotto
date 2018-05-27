@@ -1,23 +1,100 @@
-<h1><%=@divesite.name.titleize%></h1>
-<h2><%=@divesite.location.titleize%>, <%=@divesite.country.titleize%></h2>
+
+<div class="centered_divesite round_rec">
+
+  <div class="divesite_index_wrapper clear-fix">
+
+    <div class="row">
+
+      <div class="divesite_column left">
+
+        <h1 class="divesite_titles"><%=@divesite.name.titleize%></h1>
+        <pre class="divesite_pre_text">
+        <%=@divesite.location.titleize%>,
+        <%=@divesite.country.titleize%>
+        </pre>
+
+        <div class="row">
+          <a class="dual_column_links" href="/divesites/<%=@divesite.slug%>/edit">Update Divesite</a>
+          <a class="dual_column_links not_first" href="/dives/new">Log a new dive</a>
+        </div>
+
+        <%if @divesite.users.empty?%>
+          <br></br>
+          <br></br>
+<pre class="divesite_pre_text center-text">
+<p>No dives have been logged at
+<%=@divesite.name.titleize%> yet!</p></pre>
+        <%else%>
+          <br></br>
+<pre class="divesite_pre_text center-text">
+<p>Who has dived here?</p><%@divesite.users.uniq.each do |user|%><a href="/divelogs/<%=user.slug%>"><%=user.username.titleize%></a><br><%end%></pre>
+        <%end%>
+
+        </div>
+
+        <div class="divesite_column not_first">
+          <!-- <p>Hidden column</p> -->
+        </div>
+        <div class="divesite_column not_first">
+          <!-- <p>Hidden column</p> -->
+        </div>
+
+        <div class="divesite_column right not_first">
+          <!-- <div id="divelog" class="list"> -->
 
 
-<%if @divesite.users.empty?%>
-  <h2>No dives have been logged at <%=@divesite.name.titleize%> yet!</h2>
-<%else%>
-  <h2>Who has dived <%=@divesite.name%>?</h2>
-  <%@divesite.users.uniq.each do |user|%>
-    <p><a href="/divelogs/<%=user.slug%>"><%=user.username.titleize%></a></p>
-  <%end%>
-<%end%>
+        <%if @destroyable%>
 
-<button type="button" name="update_divesite_button"><a href="/divesites/<%=@divesite.slug%>/edit">Update this divesite</a></button>
-<p>You can only delete this divesite if no other Diver has logged a dive here. Any of your own dives logged here will be deleted. Only hit delete if you're sure!</p>
-<form class="delete_dive" action="/divesites/<%=@divesite.slug%>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit" name="Delete Divesite">Delete Divesite</button>
-</form>
-<button type="button" name="divesites_button"><a href="/divesites">See all divesites</a></button>
-<button type="button" name="divelog_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
-<button type="button" name="dives_button"><a href="/dives">Back to dives newsfeed</a></button>
-<button type="button" name="logout_button"><a href="/logout">Logout</a></button>
+          <br></br>
+
+            <%if @divesite.users.uniq.count != 0%>
+<pre class="divesite_pre_text center-text">
+Any of your own dives
+logged here will be
+deleted. Only hit delete
+if you're sure!</pre>
+            <%end%>
+
+            <div class="row">
+              <form class="single_column_links" action="/divesites/<%=@divesite.slug%>" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input class="triple_column_inputs" type="submit" value="Delete Divesite">
+              </form>
+            </div>
+
+            <%end%>
+
+            <br></br>
+
+            <h1 class="divesite_titles right">Notes</h1>
+            <%if @divesite.dives.map{|dive| !!dive.notes}.include?(true)%>
+<pre class="divesite_pre_text center-text">
+<%@divesite.dives.each do |dive|%><%if dive.notes%><strong><%=dive.user.username.titleize%></strong>
+<%=dive.notes%><%end%></pre>
+            <%end%>
+            <%else%>
+<pre class="divesite_pre_text">
+<p>No notes recorded yet!</p>
+</pre>
+            <%end%>
+
+        </div>
+
+      </div> <!-- row-->
+
+  </div>
+
+</div>
+
+<!-- map -->
+<div class="large_centered circle">
+  <div class="iframe-inner">
+    <iframe
+      width="600"
+      height="450"
+      frameborder="0" style="border:0"
+      src="<%=@mapsrc%>"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>

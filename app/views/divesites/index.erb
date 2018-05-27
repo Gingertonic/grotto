@@ -1,15 +1,39 @@
-<h1>All Divesites</h1>
 
-<%@countries.each do |this_country|%>
-<pre>
-<h3 id="this_country"><%=this_country.titleize%></h3>
-  <%@divesites.find_all {|ds| ds.country.downcase == this_country.downcase}.sort_by{|ds| ds.location}.each do |divesite|%>
-    <a href="/divesites/<%=divesite.slug%>"><%=divesite.name.titleize%></a> - <%=divesite.location.titleize%>
+<div class="centered_feed round_rec">
+<a name="top">
+
+  <div class="dives_index_wrapper clear-fix">
+
+    <p class="header-comments">Welcome inside, <%=current_user.username.titleize%>!</p>
+    <h1 class="inside_titles index_title">All Divesites</h1>
+
+    <div class="row">
+      <a class="dual_column_links" href="/divesites/new">Add a new divesite</a>
+      <a class="dual_column_links not_first" href="/dives/new">Log a new dive</a>
+    </div>
+
+    <br></br>
+
+    <div id="countries">
+      <%@countries.each do |this_country|%>
+        <a id="countries" href="#<%=this_country.split(" ").join("-")%>"><%=this_country.titleize%></a>
+      <%end%>
+    </div>
+
+    <br></br>
+
+      <%@countries.each do |this_country|%>
+  <pre>
+  <a name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
+    <%@divesites.find_all {|ds| ds.country.downcase == this_country.downcase}.sort_by{|ds| ds.location}.each do |divesite|%>
+      <a href="/divesites/<%=divesite.slug%>"><%=divesite.name.titleize%></a> - <%=divesite.location.titleize%>
+    <%end%>
   <%end%>
-<%end%>
-</pre>
+  <a href="#top"><p class="inside-comments">Back to top</p></a>
+  </pre>
+  
 
-<button type="button" name="new_divesite_button"><a href="/divesites/new">Add a new divesite</a></button>
-<button type="button" name="new_dive_button"><a href="/dives/new">Log a new dive</a></button>
-<button type="button" name="logout_button"><a href="/divelogs/<%=current_user.slug%>">Go to your divelog</a></button>
-<button type="button" name="logout_button"><a href="/logout">Logout</a></button>
+    </div> <!-- wrapper -->
+
+  </div>
+</div>

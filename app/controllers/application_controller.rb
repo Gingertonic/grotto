@@ -12,6 +12,7 @@ class ApplicationController < Sinatra::Base
   # ROUTES
   get '/' do
     redirect '/dives' if logged_in?
+    @outside_view = true
     erb :"index"
   end
 
@@ -73,10 +74,6 @@ class ApplicationController < Sinatra::Base
       else
         true
       end
-    end
-
-    def slugify(string)
-      string.downcase.split(" ").join("-").split(/[,!?*&#]/).join("")
     end
 
   end
