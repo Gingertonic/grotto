@@ -1,112 +1,6 @@
-NOTES
+# NOTES
 
-CURRENT LIMITATIONS
-each user can only log 1 dive per divespot on a given date
-clunky divesite selection in new and edit page - better to group by country?
-Add PADI and SSI qualifications
-
-TO DO
-- write a few tests
-- test the tests!
-
-Models:
-Users
-first name
-last name
-username
-email
-password/password_digest
-
-Dive
-date
-divesite_id
-user_id
-  (future feature, has 2 users? 2 dive buddies?)
-notes
-
-Divesites
-name
-users
-dives
-
-
-Structure:
-
-/ Homepage
-  -login
-  -signup
-
-/login
-
-/signup
-
-ISSUES THAT AROSE:
-WEDNESDAY
-wrong singularization of Dives (Dife!)
-fixed by adding activesupport gem and making an inflection file in config folder, required in config.ru
-
-tux not loading
-fixed by using require not require_relative in config.ru
-
-has_many, through assocatioan not working
-fixed by simplifying - join table was not required
-
-MONDAY
-Plan app and file structure (on paper/evernote)
-
-TUESDAY GOALS:
-finish writing tests
-get all model tests passing
-lecture on capybara testing
-
-WEDNESDAY
-RECORD 30min coding session
-get all controller tests passing
-update tests if needed (add capybara)
-pass updated test form tests
-get all basic views written
-22h30 - meeting with Katie
-
-THURSDAY
-complete technical requirements for assessment
-css - make it pretty!
-23h - meeting with TradeSchool
-00h30: Project Prep Office Hours sinatra
-
-FRIDAY
-06h30 Career Coach AMA
-record walkthrough
-write blogpost
-
-THINGS TO IMPROVE:
-design overall
-all buttons to be wrapped in links, not links inside (to avoid the underline)
-
-
-SATURDAY
-23h30: HTML/CSS Deep Dive
-
-after submit for assessment!
-Refine visual design - maybe some slight animation??? Bubbles?!
-make erb nicer...
-
-[refactor/add features if desired] ON NEW FEATURE BRANCH! ONLY MERGE IF IT STILL WORKS!
-clone Fwitter, new repo, make it nice - Bwitish Banter?!
-
-
-SUNDAY
-x retest and rewrite tests if necessary (label names etc) ( 9 failures only yay )
-tidy html...
-fill in spec.md
-update readme
-improve seeds
-record walkthrough
-write blog
-submit for assessment
-
-
-
-USER STORIES:
+## USER STORY
 Aleksandar is a regular diver
     He can visit Grotto and see an index page where he can follow a link to sign up
     He can make a new account on Grotto and see all the dives logged by other users
@@ -133,3 +27,70 @@ Aleksandar is a regular diver
     He can visit the website again later and from the welcome page he can follow a link to login
     He can login from the login page and all his dives are still available
     He can navigate away from the Grotto website without logging out and when he returns, he does not have to sign in
+
+
+## TO ADD IN FUTURE
+Ability to add and track dive qualifications
+Ability to 'follow' other divers and see a customised dive feed of only their dives
+Ability to search for other users
+Ability to add a dive buddy (another user) to each dive and have the dive connected to both users
+
+## CURRENT LIMITATIONS
+Each user can only see a page for their first logged dive for a given divesite on a given day that day [They can log multiple dives a single site on a single day but only view the first]
+
+
+## SOME ISSUES THAT AROSE (just a small sample!)
++ Incorrect singularization of Dives (Dife!) by AR
+Fixed by adding activesupport gem and making an inflection file in config folder, required in config.ru
+(Problem arose again later when using with Tux, fixed by using `has_many :dives, :class_name => "Dive"` in User and Divesite models)
+
++ Tux not loading
+Fixed by using require not require_relative in config.ru
+
++ `has_many, through` associations not working
+Fixed by simplifying - join table was not required
+
+
+## TIMELINE
+
+### MONDAY
+Plan out app and file structure
+
+### TUESDAY GOALS:
+Create base app structure
+Write initial tests
+Get all model tests passing
+Attend lecture on Capybara testing
+
+### WEDNESDAY
+Finish writing tests
+Record 30min coding session
+Update tests if needed (add Capybara)
+Continue working on controller tests
+Get all basic views written
+
+### THURSDAY
+Pass all updated tests
+Finish all basic views
+Have fully functioning basic app
+Attend Sinatra Office Hours
+
+### FRIDAY
+Complete all technical requirements for project
+Start HTML/CSS
+
+### SATURDAY
+Complete HTML/CSS
+
+### SUNDAY
+Retest and adjust as needed to accommodate any copy changes made during front end design
+Tidy HTML/erb
+Improve seeds
+Make any other improvements noticed during testing full seeds
+Update Readme, spec and notes
+Push complete final project
+
+
+Record Walkthrough
+Write blogpost
+Submit for Assessment!
