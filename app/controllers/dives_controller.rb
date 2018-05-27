@@ -9,7 +9,7 @@ class DivesController < ApplicationController
   get '/:user/:country/:location/:name/:date'do
     redirect '/login' if !logged_in?
    @dive = Dive.find_by_user_divesite_and_date(params)
-   @mapsrc = "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=#{@dive.divesite.location}+#{@dive.divesite.country}&zoom=14"
+   @mapsrc = "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=#{@dive.divesite.location}+#{@dive.divesite.country}&zoom=13"
    erb :'dives/show'
   end
 

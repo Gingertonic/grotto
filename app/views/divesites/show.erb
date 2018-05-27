@@ -68,9 +68,9 @@ if you're sure!</pre>
 
             <h1 class="divesite_titles right">Notes</h1>
             <%if @divesite.dives.map{|dive| !dive.notes.empty?}.include?(true)%>
-              <%@divesite.dives.each do |dive|%><%if dive.notes%>
+              <%@divesite.dives.reverse.each do |dive|%><%if dive.notes%>
 <pre class="divesite_pre_text center-text">
-<strong><%=dive.user.username.titleize%></strong>
+<strong><%=dive.user.username.titleize%></strong> <%=dive.date%>
 <%=dive.notes%><br><%end%>
             <%end%></pre>
             <%else%>

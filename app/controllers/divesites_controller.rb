@@ -2,7 +2,6 @@ class DivesitesController < ApplicationController
 
   get '/divesites' do
     redirect '/login' if !logged_in?
-    # binding.pry
     @divesites = Divesite.all.sort_by{|site| site.country}
     @countries = Divesite.all.map {|ds| ds.country.downcase}.uniq.sort
     erb :'divesites/index'
