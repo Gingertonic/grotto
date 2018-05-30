@@ -26,7 +26,7 @@ To run this app on a local server:
   4. Play!
     + You can make you own account or you can use these credentials to log in as a pre-made user:
       + username: `gingertonic` / password: `password`
-      
+
    - If you encounter any problems or cannot access the gingertonic test account, run these steps after step 2 above)
     3. run `bundle install`
     4. Run `rake db:seed`
@@ -72,16 +72,15 @@ After submitting your pull request, I will review it as soon as I can.
 It would super extra awesome if you can
   + Include tests for you new features
   + Make a relevant commit message and add a solid description with the request.
-  
+
 ## License
- 
+
 The MIT License (MIT)
 
-Copyright (c) 2015 Chris Kibble
+Copyright (c) 2018 Beth Michelle Schofield [Gingertonic]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
