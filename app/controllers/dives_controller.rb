@@ -51,8 +51,7 @@ class DivesController < ApplicationController
       redirect "/dives/new"
     end
     new_divesite = Divesite.create(params[:new_site]) if Dive.with_new_divesite?(params)
-    @dive = current_user.dives.create(params[:dive])
-    @dive.update(divesite: new_divesite) if new_divesite
+    @dive = Dive.create_and_add_divesite(params[:dive], current_user, new_divesite)
     redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
   end
 
@@ -76,8 +75,8 @@ class DivesController < ApplicationController
       redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}/edit"
     end
     new_divesite = Divesite.create(params[:new_site]) if Dive.with_new_divesite?(params)
-    @dive.update(params[:dive])
-    @dive.update(divesite: new_divesite) if new_divesite
+    # binding.pry
+    @dive.update_and_add_new_divesite(params[:dive], new_divesite)
     redirect "/#{@dive.user.slug}/#{@dive.divesite.slug}/#{@dive.slug}"
   end
 

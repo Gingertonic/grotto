@@ -46,7 +46,7 @@ class DivesitesController < ApplicationController
         flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
         redirect "/divesites/new"
       end
-      Dive.create_and_add_divesite(params[:dive], @new_divesite)
+      Dive.create_and_add_divesite(params[:dive], current_user, @new_divesite)
     end
     redirect "/divesites/#{@new_divesite.slug}"
   end
@@ -72,7 +72,7 @@ class DivesitesController < ApplicationController
         flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
         redirect "/divesites/#{@divesite.slug}/edit"
       end
-      Dive.create_and_add_divesite(params[:dive], divesite)
+      Dive.create_and_add_divesite(params[:dive], current_user, @divesite)
     end
     redirect "/divesites/#{@divesite.slug}"
   end

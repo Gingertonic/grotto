@@ -39,9 +39,15 @@ class Dive < ActiveRecord::Base
     (!params[:dive][:divesite_id] || params[:dive][:divesite_id].empty?)
   end
 
-  def create_and_add_divesite(params, divesite)
+  def self.create_and_add_divesite(params, current_user, divesite)
     new_dive = current_user.dives.create(params)
-    new_dive.update(divesite: divesite)
+    new_dive.update(divesite: divesite) if divesite
+    new_dive
+  end
+
+  def update_and_add_new_divesite(params, divesite)
+    self.update(params)
+    self.update(divesite: divesite) if divesite
   end
 
   def map_source
@@ -93,8 +99,6 @@ class Dive < ActiveRecord::Base
     elsif d.match(/[4567890]$/)
       date = "#{d}th"
     end
-
-
 
     full_date = "#{month} the #{date}, #{y}"
   end
