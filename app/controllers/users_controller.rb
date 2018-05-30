@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   post '/create' do
-    if invalid_user?(params)
+    if User.invalid?(params)
       flash[:alert] = "Sorry, that username is already taken!"
       redirect '/signup'
     end

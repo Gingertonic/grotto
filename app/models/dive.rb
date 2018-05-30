@@ -4,6 +4,25 @@ class Dive < ActiveRecord::Base
   belongs_to :user
   belongs_to :divesite
 
+  def self.valid_date?(date)
+    e = date.split("/")
+    d = e.first
+    m = e.second
+    y = e.third
+    thirties = [9, 4, 7, 11]
+    if d.to_i > 29 && m.to_i == 2
+      false
+    elsif d.to_i > 30 && thirties.include?(m.to_i)
+      false
+    elsif d.to_i > 31 || d.to_i < 1
+      false
+    elsif m.to_i > 12
+      false
+    else
+      true
+    end
+  end
+
   def full_date
     e = date.split("/")
     d = e.first

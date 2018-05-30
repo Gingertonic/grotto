@@ -43,7 +43,7 @@ class DivesitesController < ApplicationController
         flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
         redirect "/divesites/new"
       end
-      if !valid_date?(params[:dive][:date])
+      if !Dive.valid_date?(params[:dive][:date])
         flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
         redirect "/divesites/new"
       end
@@ -71,7 +71,7 @@ class DivesitesController < ApplicationController
         flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
         redirect "/divesites/#{@divesite.slug}/edit"
       end
-      if !valid_date?(params[:dive][:date])
+      if !Dive.valid_date?(params[:dive][:date])
         flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
         redirect "/divesites/#{@divesite.slug}/edit"
       end

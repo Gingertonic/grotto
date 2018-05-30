@@ -6,6 +6,12 @@ class User < ActiveRecord::Base
   has_many :dives, :class_name => "Dive"
   has_many :divesites, through: :dives
 
+
+  def self.invalid?(params)
+    user = User.find_by_username(params[:username])
+    params[:username].empty? || user
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
