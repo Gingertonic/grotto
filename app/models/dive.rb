@@ -4,8 +4,12 @@ class Dive < ActiveRecord::Base
   belongs_to :user
   belongs_to :divesite
 
-  def self.valid_date?(date)
-    e = date.split("/")
+  def self.missing_date?(params)
+    params[:dive][:date].empty?
+  end
+
+  def self.valid_date?(params)
+    e = (params[:dive][:date]).split("/")
     d = e.first
     m = e.second
     y = e.third
@@ -33,6 +37,15 @@ class Dive < ActiveRecord::Base
 
   def self.with_new_divesite?(params)
     (!params[:dive][:divesite_id] || params[:dive][:divesite_id].empty?)
+  end
+
+  def create_and_add_divesite(params, divesite)
+    new_dive = current_user.dives.create(params)
+    new_dive.update(divesite: divesite)
+  end
+
+  def map_source
+    "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=#{self.divesite.location}+#{self.divesite.country}&zoom=13"
   end
 
   def full_date
