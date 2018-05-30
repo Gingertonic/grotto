@@ -10,8 +10,8 @@
   height:100vh;
   width: 100%;
   position: relative;
-  /* background-color: black; */
 }
+
 /* Background Image */
 body {
     background-origin: border-box;
@@ -22,7 +22,65 @@ body {
     background-blend-mode:
 }
 
-/* Logged out view */
+/* General layout helpers */
+.center_wrapper {
+      /* background-color: black; */
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+}
+
+.circle {
+   border-radius: 50%;
+}
+
+.round_rec {
+   border-radius: 10%;
+}
+
+.centered {
+  text-align: center;
+}
+
+/* Nav Bar */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  border-bottom: 1px solid rgb(137,235,237);
+  text-align: center;
+}
+
+#navbar nav a {
+  display: inline-block;
+  width: 16.6666667%;
+  margin: 0;
+  padding: 22px 0;
+  text-transform: uppercase;
+  color: coral;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 1.5em;
+  background-color: rgba(1,1,1,0.5)
+}
+
+#navbar nav a:hover {
+  background: url("../images/Särkänniemi_-_fish.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#navbar nav a.menu-icon {
+  display: none;
+}
+
+/* Logged out views */
 div .centered {
         position: absolute;
         top:0;
@@ -35,34 +93,12 @@ div .centered {
         background-color: rgb(231,253,253);
 }
 
-div .large_centered {
-        position: absolute;
-        top:0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 40%;
-        height: 60%;
-        background-color: rgb(231,253,253);
-}
-
-
-
-.circle {
-   border-radius: 50%;
-}
-
 .outside_titles {
   text-align: center;
   color: rgb(5,64,83);
   font-size: 40px;
   font-family: 'Sunflower', sans-serif;
 }
-/*
-.pad {
-  padding-top: 30px;
-} */
 
 .outside_logo {
   color: rgb(5,64,83);
@@ -70,17 +106,65 @@ div .large_centered {
   font-family: 'Rock Salt', cursive;
 }
 
-.center_wrapper {
-      /* background-color: black; */
-        padding: 1em;
+/* Logged in Views */
+div .centered_feed {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
+        top:0px;
+        padding-top: 30px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 700px;
+        height: 80%;
+        background-color: rgb(231,253,253);
+        overflow: scroll;
+        white-space: wrap;
+    }
+
+
+.inside_titles {
+  text-align: center;
+  color: rgb(5,64,83);
+  font-size: 40px;
+  font-family: 'Rock Salt', sans-serif;
 }
 
-/* Inside */
+.subtitle {
+  font-size: 20px;
+}
+
+.scroll {
+  overflow: scroll;
+}
+
+.inside-comments {
+  text-align: center;
+  margin-top: 50px;
+  color: rgb(5,64,83);
+  font-size: 1em;
+  font-family: 'Rock Salt', sans-serif;
+}
+
+.header-comments {
+  text-align: center;
+  /* margin-top: 200px; */
+  color: rgb(5,64,83);
+  font-size: 1em;
+  font-family: 'Rock Salt', sans-serif;
+}
+
+.list {
+  position: absolute;
+  top: 50%;
+}
+
+.list a:hover a:active a:visited a:link {
+  color: grey;
+}
+
+
+/* Logged in Index Views */
 .dives_index_wrapper {
       /* background-color: black; */
         padding: 1em;
@@ -105,33 +189,12 @@ div .large_centered {
         transform: translate(-50%);
 }
 
-/* .divelog_wrapper {
-      /* background-color: black;
-        padding: 1em;
-        position: relative;
-        top: 30%;
-        left: 50%;
-        width: 70%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-} */
+#countries {
+  font-family: monospace;
+  text-align: center;
+}
 
-
-div .centered_feed {
-        position: absolute;
-        top:0px;
-        padding-top: 30px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 700px;
-        height: 80%;
-        background-color: rgb(231,253,253);
-        overflow: scroll;
-        white-space: wrap;
-    }
-
+/* Logged in Dive/Divesite show Views */
 div .centered_divesite {
         position: absolute;
         top:0;
@@ -144,29 +207,6 @@ div .centered_divesite {
         background-color: rgb(231,253,253);
         overflow: scroll;
         white-space: wrap;
-}
-
-.round_rec {
-   border-radius: 10%;
-}
-
-.list a:hover a:active a:visited a:link {
-  color: grey;
-}
-
-p .notes {
-  max-width: 45em;
-}
-
-
-
-
-.inside_titles {
-  /* margin-top: 400px; */
-  text-align: center;
-  color: rgb(5,64,83);
-  font-size: 40px;
-  font-family: 'Rock Salt', sans-serif;
 }
 
 .divesite_titles {
@@ -182,46 +222,11 @@ p .notes {
   text-decoration: none;
 }
 
-
-.subtitle {
-  font-size: 20px;
-}
-
 .divesite_subtitle {
   padding-left: 10px;
   font-size: 1.75vmin;
   text-align: left;
   color: rgb(5,64,83);
-  font-family: 'Rock Salt', sans-serif;
-}
-
-.scroll {
-  overflow: scroll;
-}
-
-
-/* .index_title {
-  margin-top: 250px;
-} */
-
-
-.divelog_title {
-  margin-top: 0px;
-}
-
-.inside-comments {
-  text-align: center;
-  margin-top: 50px;
-  color: rgb(5,64,83);
-  font-size: 1em;
-  font-family: 'Rock Salt', sans-serif;
-}
-
-.header-comments {
-  text-align: center;
-  /* margin-top: 200px; */
-  color: rgb(5,64,83);
-  font-size: 1em;
   font-family: 'Rock Salt', sans-serif;
 }
 
@@ -231,28 +236,14 @@ p .notes {
   white-space: pre-wrap;
 }
 
-.centered {
-  text-align: center;
+
+.delete_divesite {
+  width: 100%;
 }
 
-#countries {
-  font-family: monospace;
-  text-align: center;
-}
-/*
-.pad {
-  padding-top: 30px;
-} */
-
-.inside_logo {
-  color: rgb(5,64,83);
-  font-size: 70px;
-  font-family: 'Rock Salt', cursive;
-}
-
-.list {
-  position: absolute;
-  top: 50%;
+/* Logged in Divelog view */
+.divelog_title {
+  margin-top: 0px;
 }
 
 .divelog-img {
@@ -261,7 +252,7 @@ p .notes {
   margin-left: 20%;
 }
 
-/* Placeholder text */
+/* Forms placeholder text */
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: rgb(231,253,253);
     opacity: 1; /* Firefox */
@@ -275,7 +266,7 @@ p .notes {
     color: rgb(231,253,253);
 }
 
-/* Column layout */
+/* Row/Column layout */
 * {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -288,11 +279,10 @@ p .notes {
     display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
     display: -ms-flexbox;      /* TWEENER - IE 10 */
     display: -webkit-flex;
-    /* background-color: grey; */
 }
 
-.dual_column_links {
-    flex: 25%;
+.single_column_links {
+    flex: 50%;
     background-color: rgb(5,64,83);
     color: rgb(137,235,237);
     text-align: center;
@@ -301,8 +291,8 @@ p .notes {
     font-size: 1em;
 }
 
-.single_column_links {
-    flex: 50%;
+.dual_column_links {
+    flex: 25%;
     background-color: rgb(5,64,83);
     color: rgb(137,235,237);
     text-align: center;
@@ -371,61 +361,25 @@ p .notes {
     border-color: rgb(231,253,253);
 }
 
-.delete_divesite {
-  width: 100%;
-}
-
-/* Nav Bar */
-#navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  border-bottom: 1px solid rgb(137,235,237);
-  text-align: center;
-}
-
-#navbar nav a {
-  display: inline-block;
-  width: 16.6666667%;
-  margin: 0;
-  padding: 22px 0;
-  text-transform: uppercase;
-  color: coral;
-  text-align: center;
-  /* border-right: 1px solid #ccc; */
-  text-decoration: none;
-  /* font-family: 'Sunflower', sans-serif; */
-  font-family: 'Reenie Beanie', cursive;
-  font-size: 1.5em;
-  background-color: rgba(1,1,1,0.5)
-}
-
-#navbar nav a:hover {
-  /* color: rgb(137,235,237); */
-  background: url("../images/Särkänniemi_-_fish.png"); /* Old browsers */
-  background-size: contain;
-  background-repeat: no-repeat;
-  /* background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(71,71,71,1) 28%, rgba(81,81,81,1) 35%, rgba(71,71,71,1) 72%, rgba(43,43,43,1) 87%, rgba(28,28,28,1) 91%, rgba(0,0,0,1) 100%); /* FF3.6+ */
-  /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(28%,rgba(71,71,71,1)), color-stop(35%,rgba(81,81,81,1)), color-stop(72%,rgba(71,71,71,1)), color-stop(87%,rgba(43,43,43,1)), color-stop(91%,rgba(28,28,28,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */ */
-  /* background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(71,71,71,1) 28%,rgba(81,81,81,1) 35%,rgba(71,71,71,1) 72%,rgba(43,43,43,1) 87%,rgba(28,28,28,1) 91%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */ */
-  /* background: -o-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(71,71,71,1) 28%,rgba(81,81,81,1) 35%,rgba(71,71,71,1) 72%,rgba(43,43,43,1) 87%,rgba(28,28,28,1) 91%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */ */
-  /* background: -ms-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(71,71,71,1) 28%,rgba(81,81,81,1) 35%,rgba(71,71,71,1) 72%,rgba(43,43,43,1) 87%,rgba(28,28,28,1) 91%,rgba(0,0,0,1) 100%); /* IE10+ */ */
-  /* background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(71,71,71,1) 28%,rgba(81,81,81,1) 35%,rgba(71,71,71,1) 72%,rgba(43,43,43,1) 87%,rgba(28,28,28,1) 91%,rgba(0,0,0,1) 100%); /* W3C */ */ */
-}
-
-#navbar nav a.menu-icon {
-  display: none;
-}
 
 
 /* Circular GMap */
+div .large_centered {
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 40%;
+        height: 60%;
+        background-color: rgb(231,253,253);
+}
+
 .iframe-outer {
     display: inline-block;
     position: relative;
     width: 50%;
-    /* margin-top: 50px; */
     margin-left: 25%;
 }
 
@@ -451,18 +405,8 @@ p .notes {
         width: 120%;
     }
 
-  /* footer */
-/*
-footer {
-  background-color: white;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%)
-} */
 
+/* Footer */
 footer {
   position: fixed;
   bottom: 0;
@@ -512,3 +456,15 @@ i {
 .close {
   color: coral;
 }
+
+
+/* Unused for now */
+/* .inside_logo {
+  color: rgb(5,64,83);
+  font-size: 70px;
+  font-family: 'Rock Salt', cursive;
+} */
+
+/* p .notes {
+  max-width: 45em;
+} */
