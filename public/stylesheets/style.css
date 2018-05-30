@@ -197,20 +197,31 @@ div .centered_feed {
 .img-wrapper {
     width: 35px;
     height: 35px;
-    /* position: relative; */
     overflow: hidden;
     border-radius: 40%;
     float: left;
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .divefeed-img {
-  /* display: inline; */
   margin: 0 auto;
   height: auto;
   width: 100%;
   float: left;
+  /* border-style: dashed;
+  border-width: 1px;
+  border-color: coral; */
+}
+
+.subhead {
+  /* font-family: 'Rock Salt', cursive; */
+  /* font-family: 'Reenie Beanie', cursive; */
+  font-family: 'Sunflower', sans-serif;
+}
+
+hr {
+  border-color: coral;
 }
 
 /* Logged in Dive/Divesite show Views */

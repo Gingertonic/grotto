@@ -24,14 +24,14 @@
 
       <%@countries.each do |this_country|%>
   <pre>
-  <a name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
+  <a class="subhead" name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
     <%@divesites.find_all {|ds| ds.country.downcase == this_country.downcase}.sort_by{|ds| ds.location}.each do |divesite|%>
       <a href="/divesites/<%=divesite.slug%>"><%=divesite.name.titleize%></a> - <%=divesite.location.titleize%>
     <%end%>
   <%end%>
-  <a href="#top"><p class="inside-comments">Back to top</p></a>
+  <a href="#top"><p class="center-text subhead">Back to top</p></a>
   </pre>
-  
+
 
     </div> <!-- wrapper -->
 

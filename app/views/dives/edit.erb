@@ -17,7 +17,7 @@
       </div>
 
 
-      <h2 class="center-text">Choose a dive site or add a new one!</h2>
+      <h2 class="center-text subhead">Choose a dive site or add a new one!</h2>
 
       <br>
 
@@ -35,7 +35,7 @@
 
       <%@countries.each do |this_country|%>
 <pre>
-<a name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
+<a class="subhead" name="<%=this_country.split(" ").join("-")%>"><strong id="this_country"><%=this_country.titleize%></strong></a>
   <%@divesites.find_all {|ds| ds.country.downcase == this_country.downcase}.sort_by{|ds| ds.location}.each do |divesite|%>
     <input id="<%=divesite.name%>" type="radio" name="dive[divesite_id]" value="<%=divesite.id%>" <%='checked' if @dive.divesite == divesite%>> <%=divesite.name.titleize%>, <%=divesite.location.titleize%>, <%=divesite.country.titleize%>
   <%end%>
@@ -47,7 +47,7 @@
 </div>
 </pre>
 
-      <a href="#top"><p class="inside-comments">Back to top</p></a>
+      <a href="#top"><p class="center-text subhead">Back to top</p></a>
 
     </form>
 

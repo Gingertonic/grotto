@@ -6,14 +6,14 @@ Divesite.destroy_all
 
 DatabaseCleaner.clean_with(:truncation)
 
-beth = User.create({first_name: "Beth", last_name: "Schofield", username: "gingertonic", email: "thegingertonicstudios@gmail.com", password: "password"})
-al = User.create({first_name: "Aleksandar", last_name: "Gakovic", username: "aleksea_g", email: "al@bear.com", password: "marinescience"})
+beth = User.create({first_name: "Beth", last_name: "Schofield", username: "gingertonic", email: "thegingertonicstudios@gmail.com", password: "password", image_url: "https://i.imgur.com/Ar5WtEY.jpg"})
+al = User.create({first_name: "Aleksandar", last_name: "Gakovic", username: "aleksea_g", email: "al@bear.com", password: "marinescience", image_url: "https://s1.zerochan.net/Zelda.no.Densetsu%3A.Mugen.no.Sunadokei.600.175543.jpg"})
 chris = User.create({first_name: "Chris", last_name: "Zoumadakis", username: "chreece_from_greece", email: "chris@greece.com", password: "iamchreecefromgreece"})
-sarah = User.create({first_name: "Sarah", last_name: "Jaban", username: "mermaid_princess", email: "sarah@mermaids.com", password: "mermaidpower"})
-mum = User.create({first_name: "Christine", last_name: "Schofield", username: "chyanros", email: "mummy@gingertonic.com", password: "mummy"})
+sarah = User.create({first_name: "Sarah", last_name: "Jaban", username: "mermaid_princess", email: "sarah@mermaids.com", password: "mermaidpower", image_url: "https://cdn.shopify.com/s/files/1/1112/4520/products/teacup_mermaid_bubblebath_art.jpg"})
+mum = User.create({first_name: "Christine", last_name: "Schofield", username: "chyanros", email: "mummy@gingertonic.com", password: "mummy", image_url: "https://proswim.scdn3.secure.raxcdn.com/media/catalog/product/cache/1/image/700x/040ec09b1e35df139433887a97daa66f/w/o/wonder-woman-swim-bands_original.jpg"})
 gemma = User.create({first_name: "Gemma", last_name: "Fuller", username: "trumpet-gems", email: "gemma@circus.com", password: "trumpetsrule"})
-avi = User.create({first_name: "Avi", last_name: "Flombaum", username: "code-master-avi", email: "avi@flatironschool.com", password: "flatironrules"})
-tyrone = User.create({first_name: "Tyrone", last_name: "Brown", username: "irish_lad", email: "tyrone@ireland.com", password: "divingisthebest"})
+avi = User.create({first_name: "Avi", last_name: "Flombaum", username: "code-master-avi", email: "avi@flatironschool.com", password: "flatironrules", image_url: "https://pbs.twimg.com/profile_images/544985527997304833/0DNfZq49_400x400.png"})
+tyrone = User.create({first_name: "Tyrone", last_name: "Brown", username: "irish_lad", email: "tyrone@ireland.com", password: "divingisthebest", image_url: "https://www.crossed-flag-pins.com/animated-flag-gif/gifs/Ireland_240-animated-flag-gifs.gif"})
 
 
 chrisdive1 = chris.dives.create({date: "13/07/2016", time: "09:00", length: 33, notes: "Group of new divers. Awful."}) #nana beach pool

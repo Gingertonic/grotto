@@ -17,7 +17,7 @@
 
     <%@dives.reverse.each do |dive| %>
       <div class="row">
-        <pre>   <strong><a href="/divelogs/<%=dive.user.slug%>"><%=dive.user.username%></a></strong>
+        <pre>   <strong><a class="subhead" href="/divelogs/<%=dive.user.slug%>"><%=dive.user.username%></a></strong>
         <div class="img-wrapper"><img class="divefeed-img circle" src="<%=dive.user.image_url%>" alt="diver"></div>
   <%=dive.date%> :: <a href="/<%=dive.user.slug%>/<%=dive.divesite.slug%>/<%=dive.slug%>">See dive</a>
   <a href="/divesites/<%=dive.divesite.slug%>"><%=dive.divesite.name.titleize%></a>, <%=dive.divesite.location.titleize%>, <%=dive.divesite.country.titleize%>
