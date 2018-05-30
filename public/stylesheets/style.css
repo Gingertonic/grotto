@@ -106,6 +106,12 @@ div .centered {
   font-family: 'Rock Salt', cursive;
 }
 
+.img-preview {
+  width: 30%;
+  border-radius: 20%;
+  margin-top: -20px;
+}
+
 /* Logged in Views */
 div .centered_feed {
         position: absolute;

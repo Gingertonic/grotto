@@ -26,8 +26,16 @@ class User < ActiveRecord::Base
     result.first
   end
 
+  def self.define_image(input)
+    if input == ""
+      "https://upload.wikimedia.org/wikipedia/commons/c/c0/Hobby_diver.jpg"
+    else
+      input
+    end
+  end
+
   def self.invalid_image?(image_url)
-    !image_url.match(/\S*\.((jpg)|(gif)|(png))\z/i)
+    !image_url.match(/\S*\.((jpg)|(jpeg)|(gif)|(png))\z/i) && !image_url == ""
   end
 
   def smart_update(params)

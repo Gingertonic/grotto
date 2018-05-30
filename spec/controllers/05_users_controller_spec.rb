@@ -26,10 +26,10 @@ describe UsersController do
       expect(last_response.body).to include("Welcome to the")
     end
 
-    it 'directs new users to the feed of all users\' dives' do
+    it 'directs new users to a page where they can add a profile image' do
       params = {first_name: "New", last_name: "User", username: "newuser", email: "new@user.com", password: "password"}
       post '/create', params
-      expect(last_response.location).to include("/dives")
+      expect(last_response.location).to include("/set-profile-picture")
     end
 
     it 'does not let a user sign up without a password' do
