@@ -23,6 +23,18 @@ class Dive < ActiveRecord::Base
     end
   end
 
+  def self.incorrect_date_format?(params)
+    !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
+  end
+
+  def self.missing_params?(params)
+    !params[:dive][:divesite_id] && (!params[:new_site] || (params[:new_site][:name].empty? || params[:new_site][:location].empty? || params[:new_site][:country].empty?))
+  end
+
+  def self.with_new_divesite?(params)
+    (!params[:dive][:divesite_id] || params[:dive][:divesite_id].empty?)
+  end
+
   def full_date
     e = date.split("/")
     d = e.first
