@@ -106,6 +106,12 @@ div .centered {
   font-family: 'Rock Salt', cursive;
 }
 
+.img-preview {
+  width: 30%;
+  border-radius: 20%;
+  margin-top: -20px;
+}
+
 /* Logged in Views */
 div .centered_feed {
         position: absolute;
@@ -194,6 +200,36 @@ div .centered_feed {
   text-align: center;
 }
 
+.img-wrapper {
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 40%;
+    float: left;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.divefeed-img {
+  margin: 0 auto;
+  height: auto;
+  width: 100%;
+  float: left;
+  /* border-style: dashed;
+  border-width: 1px;
+  border-color: coral; */
+}
+
+.subhead {
+  /* font-family: 'Rock Salt', cursive; */
+  /* font-family: 'Reenie Beanie', cursive; */
+  font-family: 'Sunflower', sans-serif;
+}
+
+hr {
+  border-color: coral;
+}
+
 /* Logged in Dive/Divesite show Views */
 div .centered_divesite {
         position: absolute;
@@ -251,6 +287,7 @@ div .centered_divesite {
   border-radius: 30%;
   margin-left: 20%;
 }
+
 
 /* Forms placeholder text */
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

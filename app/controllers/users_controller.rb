@@ -13,8 +13,27 @@ class UsersController < ApplicationController
     end
     create_user(params)
     login(params)
-    redirect '/dives'
+    redirect '/set-profile-picture'
   end
+
+  get '/set-profile-picture' do
+    @user = current_user
+    erb :'users/edit-image'
+  end
+
+  post '/users/:slug/image' do
+    redirect '/login' if !logged_in?
+    if User.invalid_image?(params[:image_url])
+      flash[:alert] = "Sorry, that's not a valid image type"
+      redirect "/set-profile-picture"
+    end
+    url = User.define_image(params[:image_url])
+    @user = User.find_by_slug(params[:slug])
+    @user.image_url = url
+    @user.save(validate: false)
+    redirect '/set-profile-picture'
+  end
+
 
   get '/divelogs/:slug' do
     redirect '/login' if !logged_in?
@@ -48,6 +67,7 @@ class UsersController < ApplicationController
       flash[:alert] = "Sorry, that's not a valid image type"
       redirect "/users/#{@user.slug}/edit"
     end
+    params[:image_url] = User.define_image(params[:image_url])
     @user.smart_update(params)
     if !params[:new_password].empty?
       if password_mismatch?(params)

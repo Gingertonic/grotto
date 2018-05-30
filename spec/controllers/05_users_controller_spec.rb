@@ -26,10 +26,10 @@ describe UsersController do
       expect(last_response.body).to include("Welcome to the")
     end
 
-    it 'directs new users to the feed of all users\' dives' do
+    it 'directs new users to a page where they can add a profile image' do
       params = {first_name: "New", last_name: "User", username: "newuser", email: "new@user.com", password: "password"}
       post '/create', params
-      expect(last_response.location).to include("/dives")
+      expect(last_response.location).to include("/set-profile-picture")
     end
 
     it 'does not let a user sign up without a password' do
@@ -70,13 +70,13 @@ describe UsersController do
     end
 
     it 'allows user to update their details' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Schofield", email: "al@bear.com", new_password: "", password_confirmation: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Schofield", email: "al@bear.com", image_url: "", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       expect(User.find_by_username("aleksea_g").last_name).to eq("Schofield")
     end
 
     it 'does not allow user to have an empty email' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "", new_password: "", password_confirmation: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "", image_url: "", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(last_response.body).to include('Please confirm your current password')
@@ -87,14 +87,14 @@ describe UsersController do
       params = {username: "Gingertonic", password: "password"}
       post '/login', params
       get '/divelogs/aleksea_g/edit'
-      params = {username: "aleksea_g", first_name: "Bobby", last_name: "Gakovic", email: "al@bear.com", new_password: "", password_confirmation: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Bobby", last_name: "Gakovic", email: "al@bear.com", image_url: "", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(last_response.body).to include("Aleksea G's Log")
     end
 
     it 'redirects to current users divelog if successful edit' do
-      params = {username: "aleksea_g", first_name: "Alek", last_name: "Gakovic", email: "al@bear.com", new_password: "", password_confirmation: "", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Alek", last_name: "Gakovic", email: "al@bear.com", image_url: "", new_password: "", password_confirmation: "", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(User.find_by_username("aleksea_g").first_name).to eq("Alek")
@@ -102,7 +102,7 @@ describe UsersController do
     end
 
     it 'does not allow any changes with invalid password' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "aki@do.com", new_password: "", password_confirmation: "", password: "wrongpassword"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "aki@do.com", image_url: "", new_password: "", password_confirmation: "", password: "wrongpassword"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(last_response.body).to include('Please confirm your current password')
@@ -110,7 +110,7 @@ describe UsersController do
     end
 
     it 'verifies new password and does not allow change if passwords do not match' do
-      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "al@bear.com", new_password: "newpassword", password_confirmation: "notthenewpassword", password: "testing"}
+      params = {username: "aleksea_g", first_name: "Aleksandar", last_name: "Gakovic", email: "al@bear.com", image_url: "", new_password: "newpassword", password_confirmation: "notthenewpassword", password: "testing"}
       patch '/users/aleksea_g', params
       follow_redirect!
       expect(last_response.body).to include('Please confirm your current password')

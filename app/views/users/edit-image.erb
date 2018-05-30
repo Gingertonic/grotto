@@ -1,0 +1,29 @@
+<div class="centered circle">
+
+  <div class="center_wrapper">
+
+    <p class="outside_titles">Set your profile image</p>
+    <img class="img-preview" src="<%=@user.image_url%>" alt="diver">
+    <br>
+    <pre><p class="center-text">If you would like to add a profile photo,
+please paste the link to your image here.
+Must be a valid jpg, png or gif file!
+You can change it later in Account Details</p></pre>
+    <form action="/users/<%=@user.slug%>/image" method="post">
+      <div class="row">
+        <input class="single_column_inputs" type="text" name="image_url" placeholder="Image URL">
+      </div>
+      <div class="row">
+        <input class="single_column_inputs" type="submit" value="Preview image">
+      </div>
+
+      <br></br>
+
+      <div class="row">
+        <a class="single_column_links" href="/dives">Happy with this image? Click here to enter!</a>
+      </div>
+
+    </form>
+
+  </div>
+</div>

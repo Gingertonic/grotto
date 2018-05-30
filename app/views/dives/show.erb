@@ -32,6 +32,11 @@
 
         <br></br>
 
+        <img class="divelog-img" src="<%=@dive.user.image_url%>" alt="diver">
+
+        <br></br>
+        <br></br>
+
         <%if @dive.user == current_user%>
           <form class="delete_dive" action="/<%=@dive.user.slug%>/<%=@dive.divesite.slug%>/<%=@dive.slug%>" method="post">
             <input type="hidden" name="_method" value="delete">
