@@ -194,6 +194,25 @@ div .centered_feed {
   text-align: center;
 }
 
+.img-wrapper {
+    width: 35px;
+    height: 35px;
+    /* position: relative; */
+    overflow: hidden;
+    border-radius: 40%;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.divefeed-img {
+  /* display: inline; */
+  margin: 0 auto;
+  height: auto;
+  width: 100%;
+  float: left;
+}
+
 /* Logged in Dive/Divesite show Views */
 div .centered_divesite {
         position: absolute;
@@ -251,6 +270,7 @@ div .centered_divesite {
   border-radius: 30%;
   margin-left: 20%;
 }
+
 
 /* Forms placeholder text */
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
