@@ -12,11 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2018_05_22_054812) do
 
-  create_table "dive_divesites", force: :cascade do |t|
-    t.integer "dive_id"
-    t.integer "divesite_id"
-  end
-
   create_table "dives", force: :cascade do |t|
     t.string "date"
     t.integer "divesite_id"
