@@ -2,8 +2,8 @@ class DivesitesController < ApplicationController
 
   get '/divesites' do
     redirect '/login' if !logged_in?
-    @divesites = Divesite.all.sort_by{|site| site.country}
-    @countries = Divesite.all.map {|ds| ds.country.downcase}.uniq.sort
+    @divesites = Divesite.sort_by_country
+    @countries = Divesite.all_countries
     erb :'divesites/index'
   end
 
@@ -16,9 +16,8 @@ class DivesitesController < ApplicationController
   get '/divesites/:country/:location/:name' do
     redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
-    @mapsrc = "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=dive+centers+in+#{@divesite.location}+#{@divesite.country}&zoom=10"
-    affected_users = @divesite.dives.map{|dive| dive.user}.uniq
-    @destroyable = true if affected_users.count == 0 || (affected_users.count == 1 && affected_users.first == current_user)
+    @mapsrc = @divesite.map_source
+    @destroyable = @divesite.destroyable?(current_user)
     erb :'divesites/show'
   end
 
@@ -29,7 +28,7 @@ class DivesitesController < ApplicationController
 
   post '/divesites' do
     redirect '/login' if !logged_in?
-    if params[:divesite][:name].empty? || params[:divesite][:location].empty?  || params[:divesite][:country].empty?
+    if Divesite.incomplete_info_for_new?(params)
       flash[:alert] = "Divesite must have a name, location and country!"
       redirect "/divesites/new"
     end
@@ -38,18 +37,16 @@ class DivesitesController < ApplicationController
       redirect '/divesites/new'
     end
     @new_divesite = Divesite.create(params[:divesite])
-    if !params[:dive][:date].empty?
-      if !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
+    if !Dive.missing_date?(params)
+      if Dive.incorrect_date_format?(params)
         flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
         redirect "/divesites/new"
       end
-      if !valid_date?(params[:dive][:date])
+      if !Dive.valid_date?(params)
         flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
         redirect "/divesites/new"
       end
-
-      @new_dive = current_user.dives.create(params[:dive])
-      @new_dive.update(divesite: @new_divesite)
+      Dive.create_and_add_divesite(params[:dive], current_user, @new_divesite)
     end
     redirect "/divesites/#{@new_divesite.slug}"
   end
@@ -57,7 +54,7 @@ class DivesitesController < ApplicationController
   patch '/divesites/:country/:location/:name' do
     redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
-    if params[:divesite][:name].empty? || params[:divesite][:location].empty?  || params[:divesite][:country].empty?
+    if Divesite.incomplete_info_for_new?(params)
       flash[:alert] = "Divesite must have a name, location and country!"
       redirect "/divesites/#{@divesite.slug}/edit"
     end
@@ -66,17 +63,16 @@ class DivesitesController < ApplicationController
       redirect "/divesites/#{@divesite.slug}/edit"
     end
     @divesite.update(params[:divesite])
-    if !params[:dive][:date].empty?
-      if !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
+    if !Dive.missing_date?(params)
+      if Dive.incorrect_date_format?(params)
         flash[:alert] = "Dive date must be in the format of DD/MM/YYYY!"
         redirect "/divesites/#{@divesite.slug}/edit"
       end
-      if !valid_date?(params[:dive][:date])
+      if !Dive.valid_date?(params)
         flash[:alert] = "That's not a valid date! Remember, 'Thirty days have September, April, Ju...'"
         redirect "/divesites/#{@divesite.slug}/edit"
       end
-      @new_dive = current_user.dives.create(params[:dive])
-      @new_dive.update(divesite: @divesite)
+      Dive.create_and_add_divesite(params[:dive], current_user, @divesite)
     end
     redirect "/divesites/#{@divesite.slug}"
   end
@@ -84,18 +80,11 @@ class DivesitesController < ApplicationController
   delete '/divesites/:country/:location/:name' do
     redirect '/login' if !logged_in?
     @divesite = Divesite.find_by_slug(params)
-    @dives = Dive.all.find_all{|dive| dive.divesite == @divesite}
-    affected_users = @dives.map{|dive| dive.user}.uniq
-    if affected_users.count > 1 || (affected_users.count == 1 && affected_users.first != current_user)
+    if !@divesite.destroyable?(current_user)
       flash[:alert] = "Other people have logged dives here; you cannot delete this divesite!"
       redirect "/divesites/#{@divesite.slug}"
     end
-    @dives.each {|dive| dive.destroy }
-    @divesite.destroy
+    @divesite.delete_site_and_related_dives
     redirect '/divesites'
   end
 end
-
-
-#check if divesite does not already exist
-#if delete, deletes all associated dives as well

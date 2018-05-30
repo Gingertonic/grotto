@@ -115,7 +115,7 @@ describe DivesController do
       expect(page).not_to have_selector("form")
     end
 
-    it 'redirects to current users divelog if successful edit' do
+    it 'redirects to updated dive show page if successful edit' do
       fill_in "dive[date]", with: "12/12/2012"
       click_button("Update Dive")
       expect(page).to have_current_path('/aleksea_g/indonesia/menjangan-island-bali/ariels-grotto/12-12-2012')

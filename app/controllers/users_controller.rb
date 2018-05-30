@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   post '/create' do
-    if invalid_user?(params)
+    if User.invalid?(params)
       flash[:alert] = "Sorry, that username is already taken!"
       redirect '/signup'
     end
@@ -44,16 +44,13 @@ class UsersController < ApplicationController
       flash[:alert] = "Please enter your password to confirm changes"
       redirect "/users/#{@user.slug}/edit"
     end
-    params.each {|k, v| @user.update(k => v, "password" => params[:password]) if !!@user[k]}
+    @user.smart_update(params)
     if !params[:new_password].empty?
-      # binding.pry
-      # if @user.update(password: params[:new_password]  params[:password]
-      if params[:new_password] != params[:password_confirmation]
+      if password_mismatch?(params)
         flash[:alert] = "Your new passwords do not match"
         redirect "/users/#{@user.slug}/edit"
       end
-      @user.password = params[:new_password]
-      @user.save
+      @user.update_password(params)
     end
     flash[:alert] = "Your changes have been saved"
     redirect "/divelogs/#{@user.slug}"

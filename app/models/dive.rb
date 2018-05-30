@@ -4,6 +4,56 @@ class Dive < ActiveRecord::Base
   belongs_to :user
   belongs_to :divesite
 
+  def self.missing_date?(params)
+    params[:dive][:date].empty?
+  end
+
+  def self.valid_date?(params)
+    e = (params[:dive][:date]).split("/")
+    d = e.first
+    m = e.second
+    y = e.third
+    thirties = [9, 4, 7, 11]
+    if d.to_i > 29 && m.to_i == 2
+      false
+    elsif d.to_i > 30 && thirties.include?(m.to_i)
+      false
+    elsif d.to_i > 31 || d.to_i < 1
+      false
+    elsif m.to_i > 12
+      false
+    else
+      true
+    end
+  end
+
+  def self.incorrect_date_format?(params)
+    !params[:dive][:date].match(/\d{2}\/\d{2}\/\d{4}/)
+  end
+
+  def self.missing_params?(params)
+    !params[:dive][:divesite_id] && (!params[:new_site] || (params[:new_site][:name].empty? || params[:new_site][:location].empty? || params[:new_site][:country].empty?))
+  end
+
+  def self.with_new_divesite?(params)
+    (!params[:dive][:divesite_id] || params[:dive][:divesite_id].empty?)
+  end
+
+  def self.create_and_add_divesite(params, current_user, divesite)
+    new_dive = current_user.dives.create(params)
+    new_dive.update(divesite: divesite) if divesite
+    new_dive
+  end
+
+  def update_and_add_new_divesite(params, divesite)
+    self.update(params)
+    self.update(divesite: divesite) if divesite
+  end
+
+  def map_source
+    "https://www.google.com/maps/embed/v1/search?key=AIzaSyCTvz6Gwbc_XUccsnJHBBGaLEn_IbZvWIY&q=#{self.divesite.location}+#{self.divesite.country}&zoom=13"
+  end
+
   def full_date
     e = date.split("/")
     d = e.first
@@ -49,8 +99,6 @@ class Dive < ActiveRecord::Base
     elsif d.match(/[4567890]$/)
       date = "#{d}th"
     end
-
-
 
     full_date = "#{month} the #{date}, #{y}"
   end

@@ -19,11 +19,6 @@ class ApplicationController < Sinatra::Base
 
   helpers do
 
-    def invalid_user?(params)
-      user = User.find_by_username(params[:username])
-      params[:username].empty? || user
-    end
-
     def create_user(params)
       user = User.create(params).save
       if !user
@@ -57,23 +52,8 @@ class ApplicationController < Sinatra::Base
       @current_user ||= User.find(session[:user_id]) if logged_in?
     end
 
-    def valid_date?(date)
-      e = date.split("/")
-      d = e.first
-      m = e.second
-      y = e.third
-      thirties = [9, 4, 7, 11]
-      if d.to_i > 29 && m.to_i == 2
-        false
-      elsif d.to_i > 30 && thirties.include?(m.to_i)
-        false
-      elsif d.to_i > 31 || d.to_i < 1
-        false
-      elsif m.to_i > 12
-        false
-      else
-        true
-      end
+    def password_mismatch?(params)
+      params[:new_password] != params[:password_confirmation]
     end
 
   end
