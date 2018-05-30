@@ -1,0 +1,6 @@
+1. Tidy controllers:
+    Take anything that can be abstracted to a helper method
+    into app ctrlr helpers
+
+2. Consolidate validations:
+    If any validations can happen in a neater way, do it!

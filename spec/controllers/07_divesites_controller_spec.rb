@@ -4,8 +4,8 @@ describe DivesitesController do
   before(:each) do
     @beti = User.create({first_name: "Beth", last_name: "Schofield", username: "beti_leti", email: "thegingertonicstudios@gmail.com", password: "password"})
     aki = User.create({first_name: "Aleksandar", last_name: "Gakovic", username: "aleksea_g", email: "al@bear.com", password: "testing"})
-    dive1 = Dive.create(date: "17/04/2018")
-    dive2 = Dive.create(date: "01/30/2017")
+    dive1 = Dive.create(date: "17/04/2018", notes: "")
+    dive2 = Dive.create(date: "01/30/2017", notes: "")
     grotto = Divesite.create(name: "Ariels Grotto", location: "Menjangan Island, Bali", country: "Indonesia")
     epcot = Divesite.create(name: "Living Seas at Epcot", location: "Disneyworld", country: "USA")
     dive1.user = aki
