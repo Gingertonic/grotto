@@ -52,6 +52,10 @@ class ApplicationController < Sinatra::Base
       @current_user ||= User.find(session[:user_id]) if logged_in?
     end
 
+    def password_mismatch?(params)
+      params[:new_password] != params[:password_confirmation]
+    end
+
   end
 
 end

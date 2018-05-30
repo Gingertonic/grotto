@@ -25,4 +25,13 @@ class User < ActiveRecord::Base
     result.first
   end
 
+  def smart_update(params)
+    params.each {|k, v| self.update(k => v, "password" => params[:password]) if !!self[k]}
+  end
+
+  def update_password(params)
+    self.password = params[:new_password]
+    self.save
+  end
+
 end
