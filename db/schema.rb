@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_22_054812) do
+ActiveRecord::Schema.define(version: 2018_05_30_094444) do
 
   create_table "dives", force: :cascade do |t|
     t.string "date"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_22_054812) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
+    t.string "image_url"
   end
 
 end

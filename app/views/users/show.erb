@@ -15,7 +15,7 @@
     <br></br>
     <br></br>
 
-    <img class="divelog-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Hobby_diver.jpg" alt="diver">
+    <img class="divelog-img" src="<%=@user.image_url%>" alt="diver">
 
     <%if @user.dives.empty? && @user == current_user%>
       <p class="inside-comments">You have not logged any dives yet!</p>

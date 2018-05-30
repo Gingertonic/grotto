@@ -44,6 +44,10 @@ class UsersController < ApplicationController
       flash[:alert] = "Please enter your password to confirm changes"
       redirect "/users/#{@user.slug}/edit"
     end
+    if User.invalid_image?(params[:image_url])
+      flash[:alert] = "Sorry, that's not a valid image type"
+      redirect "/users/#{@user.slug}/edit"
+    end
     @user.smart_update(params)
     if !params[:new_password].empty?
       if password_mismatch?(params)
