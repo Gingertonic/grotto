@@ -2,6 +2,10 @@
 
 ## Hello! Welcome to Grotto. This is a web application for logging SCUBA dives and networking with fellow divers.
 
+See a video walkthrough of the app [here](https://www.youtube.com/watch?v=NK--PSbu7qM)
+
+Read my blog post about this project [here](https://medium.com/@bethmschofield/diving-with-sinatra-71e4729cdc81)
+
 At a minimum, users can:
   + Create an account, login and logout
   + Log a dive
